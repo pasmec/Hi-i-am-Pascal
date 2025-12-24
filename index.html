@@ -10,6 +10,65 @@
             --text: #1a1a1a;
             --accent: #007AFF;
             --secondary: #666666;
+            /* Der vertikale Zeitstrahl */
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 30px; /* Platz für die Linie */
+}
+
+/* Die vertikale Linie */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: var(--border);
+    top: 0;
+    bottom: 0;
+    left: 7px; /* Position der Linie */
+}
+
+/* Die einzelnen Stopps (Container) */
+.timeline-item {
+    padding: 10px 20px;
+    position: relative;
+    background-color: inherit;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Die Punkte auf der Linie */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: -1px; /* Genau auf der Linie */
+    background-color: var(--bg);
+    border: 2px solid var(--accent);
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.5s ease;
+}
+
+/* Punkt füllt sich, wenn aktiv */
+.reveal.active .timeline-item::after {
+    background-color: var(--accent);
+}
+
+.timeline-content {
+    padding: 0px 10px;
+}
+
+.timeline-date {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 5px;
+}
         }
 
         body {
@@ -112,7 +171,7 @@
         <section class="reveal">
             <h2>aa</h2>
             <div class="content-block">
-                <p>I’m interested in people, culture, and the stories behind great brands and products. For me, “great” means work created with genuine passion and intention. I’m drawn to collaborating with people who truly care about what they do and helping them gain clarity, direction, and visibility.</p>
+                <p>I’m interested in people, culture, and the stories behind great brands and products.</p>
                 <p>For me, “great” means work created with genuine passion and intention.</p>
                 <p>That’s what I’m drawn to: working with people who truly care about what they do and helping them gain clarity, direction, and visibility.</p>
             </div>
@@ -133,13 +192,29 @@
         </section>
 
         <section class="reveal">
-            <h2>Berufserfahrung</h2>
-            <div class="item">
-                <span class="item-title">Senior Frontend Developer</span>
-                <span class="item-date">2021 — Heute</span>
-                <p>Arbeit an skalierbaren Web-Apps und interaktiven UI-Komponenten.</p>
+    <h2>Berufserfahrung</h2>
+    <div class="timeline">
+        
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <span class="timeline-date">2021 — Heute</span>
+                <span class="item-title">Senior Frontend Developer @ Company</span>
+                <p>Verantwortlich für das UI-System und interaktive Komponenten.</p>
             </div>
-        </section>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <span class="timeline-date">2019 — 2021</span>
+                <span class="item-title">Junior Developer @ StartUp</span>
+                <p>Entwicklung der mobilen App. 
+                   <br><small><i>Projekt: Redesign der Payment-Schnittstelle</i></small>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
     </div>
 
     <script>
