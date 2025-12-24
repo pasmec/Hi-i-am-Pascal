@@ -19,14 +19,61 @@
 }
 
 /* Die vertikale Linie */
-.timeline::after {
+..timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 40px 0;
+    padding-left: 40px; /* Platz für Linie und Punkte */
+}
+
+/* Die durchgehende vertikale Linie */
+.timeline::before {
     content: '';
     position: absolute;
     width: 2px;
-    background-color: var(--border);
-    top: 0;
-    bottom: 0;
-    left: 7px; /* Position der Linie */
+    background-color: #eeeeee; /* Hellgraue Linie */
+    top: 10px;
+    bottom: 10px;
+    left: 7px; /* Exakt unter den Punkten */
+    z-index: 0;
+}
+
+/* Die einzelnen Stopps */
+.timeline-item {
+    position: relative;
+    margin-bottom: 60px; /* Abstand zwischen den Jobs */
+    z-index: 1;
+}
+
+/* Die blauen Punkte */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: -38px; /* Schiebt den Punkt zurück auf die Linie */
+    background-color: #007AFF; /* Dein Blau */
+    top: 5px;
+    border-radius: 50%;
+    border: 4px solid #ffffff; /* Weißer Rand trennt Punkt von Linie */
+    box-shadow: 0 0 0 1px #007AFF; /* Optional: kleiner blauer Außenring */
+}
+
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: #007AFF;
+    margin-bottom: 4px;
+}
+
+.item-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
 }
 
 /* Die einzelnen Stopps (Container) */
