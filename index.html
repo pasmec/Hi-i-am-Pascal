@@ -3,199 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi, i am Pascal</title>
+    <title>Pascal | Interaktives Portfolio</title>
     <style>
         :root {
             --bg: #ffffff;
             --text: #1a1a1a;
             --accent: #007AFF;
             --secondary: #666666;
-            /* Der vertikale Zeitstrahl */
-.timeline {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-left: 30px; /* Platz für die Linie */
-}
-
-/* Die vertikale Linie */
-..timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 40px 0;
-    padding-left: 40px; /* Platz für Linie und Punkte */
-}
-
-/* Die durchgehende vertikale Linie */
-.timeline::before {
-    content: '';
-    position: absolute;
-    width: 2px;
-    background-color: #eeeeee; /* Hellgraue Linie */
-    top: 10px;
-    bottom: 10px;
-    left: 7px; /* Exakt unter den Punkten */
-    z-index: 0;
-}
-
-/* Die einzelnen Stopps */
-.timeline-item {
-    position: relative;
-    margin-bottom: 60px; /* Abstand zwischen den Jobs */
-    z-index: 1;
-}
-
-/* Die blauen Punkte */
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    left: -38px; /* Schiebt den Punkt zurück auf die Linie */
-    background-color: #007AFF; /* Dein Blau */
-    top: 5px;
-    border-radius: 50%;
-    border: 4px solid #ffffff; /* Weißer Rand trennt Punkt von Linie */
-    box-shadow: 0 0 0 1px #007AFF; /* Optional: kleiner blauer Außenring */
-}
-
-.timeline-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.timeline-date {
-    font-weight: bold;
-    color: #007AFF;
-    margin-bottom: 4px;
-}
-
-.item-title {
-    font-weight: 800;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-}
-
-/* Die einzelnen Stopps (Container) */
-.timeline-item {
-    padding: 10px 20px;
-    position: relative;
-    background-color: inherit;
-    width: 100%;
-    margin-bottom: 40px;
-}
-
-/* Die Punkte auf der Linie */
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: -1px; /* Genau auf der Linie */
-    background-color: var(--bg);
-    border: 2px solid var(--accent);
-    top: 15px;
-    border-radius: 50%;
-    z-index: 1;
-    transition: background-color 0.5s ease;
-}
-
-/* Punkt füllt sich, wenn aktiv */
-.reveal.active .timeline-item::after {
-    background-color: var(--accent);
-}
-
-.timeline-content {
-    padding: 0px 10px;
-}
-
-.timeline-date {
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 5px;
-}
+            --border: #eeeeee;
         }
 
         body {
-            font-family: -apple-system, system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Fullscreen Hero Section */
+        /* 1. HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            background: var(--bg);
         }
 
         .hero h1 {
             font-size: 4rem;
             letter-spacing: -2px;
             margin: 0;
-            animation: fadeIn 2s ease-out;
-        }
-
-        /* Scroll-Animation Klassen */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
-            margin-bottom: 150px; /* Viel Platz zwischen den Sektionen */
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        h2 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            margin-bottom: 30px;
-        }
-
-        .content-block {
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        .item {
-            margin-bottom: 40px;
-            border-left: 2px solid #eee;
-            padding-left: 20px;
-        }
-
-        .item-title { font-weight: bold; display: block; }
-        .item-date { color: var(--secondary); font-size: 0.9rem; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            font-weight: 800;
         }
 
         .scroll-hint {
             position: absolute;
             bottom: 30px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--secondary);
             animation: bounce 2s infinite;
         }
@@ -205,85 +53,234 @@
             40% {transform: translateY(-10px);}
             60% {transform: translateY(-5px);}
         }
+
+        /* 2. LAYOUT & REVEAL ANIMATION */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+            margin-bottom: 150px;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        /* 3. ZICK-ZACK TIMELINE */
+        .timeline {
+            position: relative;
+            margin: 0 auto;
+        }
+
+        /* Die Mittellinie */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--border);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        /* Die blauen Punkte */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: var(--bg);
+            border: 3px solid var(--accent);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: background-color 0.5s ease;
+        }
+
+        .reveal.active .timeline-item::after {
+            background-color: var(--accent);
+        }
+
+        .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+        .timeline-item:nth-child(even)::after { left: -8px; }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: block;
+            margin: 5px 0;
+        }
+
+        /* 4. PROJEKT KARTEN */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: #f4f4f4;
+            object-fit: cover;
+        }
+
+        .project-content { padding: 20px; }
+
+        /* MOBILE OPTIMIERUNG */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
+            .timeline-item::after { left: 12px !important; }
+            .timeline-item:nth-child(even) { left: 0; }
+        }
     </style>
 </head>
 <body>
 
     <section class="hero">
         <h1>Hi, I am Pascal</h1>
+        <p style="color: var(--secondary);">Minimalist • Developer • Creative</p>
         <div class="scroll-hint">Scroll nach unten</div>
     </section>
 
     <div class="container">
-        <section class="reveal">
-            <h2>aa</h2>
-            <div class="content-block">
-                <p>I’m interested in people, culture, and the stories behind great brands and products.</p>
-                <p>For me, “great” means work created with genuine passion and intention.</p>
-                <p>That’s what I’m drawn to: working with people who truly care about what they do and helping them gain clarity, direction, and visibility.</p>
-            </div>
-        </section>
-
-        <section class="reveal">
-            <h2>Ausbildung</h2>
-            <div class="item">
-                <span class="item-title">Master of Science / Management </span>
-                <span class="item-date">2024 — 2027</span>
-                <p>University of Mannheim</p>
-            </div>
-            <div class="item">
-                <span class="item-title">Bachelor of Science / Business Administration </span>
-                <span class="item-date">2020 — 2024</span>
-                <p>Business School Pforzheim</p>
-            </div>
-        </section>
-
-        <section class="reveal">
-    <h2>Berufserfahrung</h2>
-    <div class="timeline">
         
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <span class="timeline-date">2021 — Heute</span>
-                <span class="item-title">Senior Frontend Developer @ Company</span>
-                <p>Verantwortlich für das UI-System und interaktive Komponenten.</p>
+        <section class="reveal">
+            <h2>Über Mich</h2>
+            <div style="text-align: center; font-size: 1.2rem;">
+                <p>Ich gestalte digitale Erlebnisse mit Fokus auf Performance und sauberes Design. Willkommen in meinem interaktiven Lebenslauf.</p>
             </div>
-        </div>
+        </section>
 
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <span class="timeline-date">2019 — 2021</span>
-                <span class="item-title">Junior Developer @ StartUp</span>
-                <p>Entwicklung der mobilen App. 
-                   <br><small><i>Projekt: Redesign der Payment-Schnittstelle</i></small>
-                </p>
+        <section class="reveal">
+            <h2>Berufserfahrung</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023 — Heute</span>
+                        <span class="item-title">Position Eins</span>
+                        <p>Hier beschreibst du kurz deine aktuellen Aufgaben.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021 — 2023</span>
+                        <span class="item-title">Position Zwei</span>
+                        <p>Was hast du in dieser Station gelernt?</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2019 — 2021</span>
+                        <span class="item-title">Position Drei</span>
+                        <p>Wichtige Projekte oder Verantwortlichkeiten.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2017 — 2019</span>
+                        <span class="item-title">Position Vier</span>
+                        <p>Erfolge und Entwicklungsschritte.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2015 — 2017</span>
+                        <span class="item-title">Position Fünf</span>
+                        <p>Deine Anfänge und Basis-Erfahrungen.</p>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </section>
 
-    </div>
-</section>
+        <section class="reveal">
+            <h2>Projekte</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/400x250" alt="Projekt 1" class="project-image">
+                    <div class="project-content">
+                        <h3 style="margin:0;">Projektname A</h3>
+                        <p style="font-size: 0.9rem; color: var(--secondary);">Kurze Beschreibung der Technologie und des Ziels.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/400x250" alt="Projekt 2" class="project-image">
+                    <div class="project-content">
+                        <h3 style="margin:0;">Projektname B</h3>
+                        <p style="font-size: 0.9rem; color: var(--secondary);">Was hast du hier entwickelt?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <script>
-        // Funktion, die prüft, ob ein Element im Sichtfeld ist
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150; // Schwellenwert in Pixeln
-
+                var elementVisible = 150;
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
             }
         }
-
-        // Event-Listener für das Scrollen
         window.addEventListener("scroll", reveal);
-
-        // Einmal aufrufen, falls User schon weiter unten ist
-        reveal();
+        reveal(); // Initialer Check beim Laden
     </script>
 
 </body>
