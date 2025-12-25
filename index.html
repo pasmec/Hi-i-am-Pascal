@@ -66,17 +66,15 @@
             text-align: center;
         }
 
-        /* EDUCATION & INTRO STYLE (Aus deinem Beispiel) */
-        .content-block { font-size: 1.2rem; line-height: 1.8; text-align: center; }
+        /* INTRO & EDUCATION STYLE (Zentriert, ohne Strich) */
+        .content-block, .edu-section { text-align: center; font-size: 1.2rem; line-height: 1.8; }
         
         .edu-item {
-            margin-bottom: 40px;
-            border-left: 2px solid #eee;
-            padding-left: 20px;
-            text-align: left;
+            margin-bottom: 50px;
+            text-align: center; /* Zentrierter Text */
         }
-        .item-title { font-weight: bold; display: block; }
-        .item-date { color: var(--secondary); font-size: 0.9rem; }
+        .item-title { font-weight: bold; display: block; font-size: 1.3rem; }
+        .item-date { color: var(--secondary); font-size: 0.95rem; display: block; margin-bottom: 5px; }
 
         /* INTERAKTIVE WORK EXPERIENCE (Zick-Zack & Spotlight) */
         .timeline { position: relative; margin: 0 auto; }
@@ -95,7 +93,6 @@
             z-index: 2;
         }
 
-        /* Fokus-Effekt beim Hovern */
         .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
         .timeline-item:hover { opacity: 1 !important; transform: scale(1.1) !important; z-index: 10; }
 
@@ -156,20 +153,6 @@
         </section>
 
         <section class="reveal">
-            <h2>Ausbildung</h2>
-            <div class="edu-item">
-                <span class="item-title">Master of Science / Informatik</span>
-                <span class="item-date">2018 — 2020</span>
-                <p>Universität Musterstadt</p>
-            </div>
-            <div class="edu-item">
-                <span class="item-title">Bachelor of Science</span>
-                <span class="item-date">2015 — 2018</span>
-                <p>Hochschule Beispielstadt</p>
-            </div>
-        </section>
-
-        <section class="reveal">
             <h2>Berufserfahrung</h2>
             <div class="timeline">
                 
@@ -222,6 +205,22 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>Ausbildung</h2>
+            <div class="edu-section">
+                <div class="edu-item">
+                    <span class="item-date">2018 — 2020</span>
+                    <span class="item-title">Master of Science / Informatik</span>
+                    <p>Universität Musterstadt</p>
+                </div>
+                <div class="edu-item">
+                    <span class="item-date">2015 — 2018</span>
+                    <span class="item-title">Bachelor of Science</span>
+                    <p>Hochschule Beispielstadt</p>
+                </div>
             </div>
         </section>
 
