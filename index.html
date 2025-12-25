@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pascal | Portfolio</title>
+    <title>Pascal | Interaktives Portfolio</title>
     <style>
         :root {
             --bg: #ffffff;
@@ -23,101 +23,85 @@
         }
 
         /* HERO SECTION */
-        .hero { 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
+
         .hero h1 { font-size: 4rem; letter-spacing: -2px; margin: 0; font-weight: 800; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        /* REVEAL ANIMATION */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; margin-bottom: 150px; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* SEKTIONEN - Immer sichtbar, kleine Einblend-Animation beim ersten Laden */
-        section { margin-bottom: 150px; opacity: 1; }
-        
-        .fade-in {
-            animation: fadeInAnim 1.5s ease forwards;
-        }
+        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 50px; text-align: center; }
 
-        @keyframes fadeInAnim {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 60px; text-align: center; }
-
-        /* TIMELINE DESIGN */
-        .timeline { position: relative; margin: 50px auto; }
-        .timeline::after { 
-            content: ''; position: absolute; width: 2px; background-color: var(--border); 
-            top: 0; bottom: 0; left: 50%; margin-left: -1px; 
-        }
+        /* ZICK-ZACK TIMELINE MIT HOVER-EFFEKT */
+        .timeline { position: relative; margin: 0 auto; transition: all 0.5s ease; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--border); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
 
         .timeline-item {
-            padding: 40px;
+            padding: 20px 40px;
             position: relative;
             width: 50%;
             box-sizing: border-box;
-            transition: all 0.5s ease-in-out;
-            opacity: 0.25; /* Standard-Zustand: ausgegraut */
-            transform: scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            z-index: 2;
         }
 
-        /* AKTIVE STATION (Spotlight) */
-        .timeline-item.focused {
-            opacity: 1;
-            transform: scale(1.05);
-            z-index: 10;
-        }
+        /* Fokus-Effekt: Wenn man über die Timeline hovert, werden alle Items blasser... */
+        .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
 
+        /* ...außer das, über dem die Maus gerade ist! */
+        .timeline-item:hover { opacity: 1 !important; transform: scale(1.1) !important; z-index: 10; }
+
+        /* Die blauen Punkte */
         .timeline-item::after {
-            content: ''; position: absolute; width: 14px; height: 14px; right: -10px;
-            background-color: var(--bg); border: 3px solid var(--accent); top: 50px; border-radius: 50%; z-index: 1;
+            content: ''; position: absolute; width: 16px; height: 16px; right: -11px;
+            background-color: var(--bg); border: 3px solid var(--accent); top: 30px; border-radius: 50%; z-index: 1;
         }
-        .timeline-item:nth-child(even)::after { left: -10px; }
+        .timeline-item:nth-child(even)::after { left: -11px; }
 
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
-        /* BILDER NEBEN DEN STATIONEN */
+        /* BILDER-LOGIK (Versteckt bis Hover) */
         .station-images {
+            display: none;
             position: absolute;
-            top: 40px;
-            width: 220px;
-            display: flex;
+            top: 0;
+            width: 180px;
+            gap: 10px;
             flex-direction: column;
-            gap: 15px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.5s ease;
-            pointer-events: none;
+            animation: fadeIn 0.4s ease;
         }
 
-        .timeline-item.focused .station-images { opacity: 1; transform: translateY(0); }
+        /* Positionierung der Bilder neben den Items */
+        .timeline-item:nth-child(odd) .station-images { left: 105%; }
+        .timeline-item:nth-child(even) .station-images { right: 105%; }
 
-        .timeline-item:nth-child(odd) .station-images { left: 110%; }
-        .timeline-item:nth-child(even) .station-images { right: 110%; }
+        .timeline-item:hover .station-images { display: flex; }
 
-        .station-images img { 
-            width: 100%; border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            border: 1px solid var(--border);
+        .station-images img {
+            width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--accent);
         }
 
-        /* EDUCATION */
-        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: center; }
-        .edu-card { padding: 20px; border: 1px solid var(--border); border-radius: 15px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        @media (max-width: 900px) {
+        /* MOBILE OPTIMIERUNG */
+        @media (max-width: 800px) {
             .timeline::after { left: 20px; }
-            .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; opacity: 1; transform: scale(1); }
+            .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
-            .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; opacity: 1; margin-top: 20px; }
-            .edu-grid { grid-template-columns: 1fr; }
+            .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; margin-top: 15px; }
         }
     </style>
 </head>
@@ -125,119 +109,60 @@
 
     <section class="hero">
         <h1>Hi, I am Pascal</h1>
-        <p style="color: var(--secondary); font-size: 1.2rem;">Professional Portfolio</p>
+        <p style="color: var(--secondary);">Digital Portfolio • Professional Experience</p>
     </section>
 
     <div class="container">
-        
-        <section class="fade-in">
-            <h2>Intro</h2>
-            <div style="text-align: center; max-width: 700px; margin: 0 auto; font-size: 1.25rem;">
-                <p>Willkommen! Ich bin Pascal. Hier findest du eine Übersicht meiner bisherigen Projekte und Erfahrungen. Alles ist auf einen Blick sichtbar – scrolle einfach durch meine Stationen.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>Work Experience</h2>
-            <div class="timeline" id="experience-timeline">
+        <section class="reveal">
+            <h2>Berufserfahrung</h2>
+            <div class="timeline">
                 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2023 — Heute</span>
-                        <h3 style="margin: 5px 0;">Senior Station</h3>
-                        <p>Beschreibung deiner aktuellen Rolle und wichtigsten Erfolge.</p>
+                        <h3 style="margin: 5px 0;">Senior Lead</h3>
+                        <p>Beschreibung deiner Tätigkeit hier.</p>
                     </div>
                     <div class="station-images">
-                        <img src="images/projekt1.jpg" alt="Projekt">
+                        <img src="https://via.placeholder.com/180x120?text=Projekt+A" alt="Projekt">
+                        <img src="https://via.placeholder.com/180x120?text=Design+B" alt="Design">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2021 — 2023</span>
-                        <h3 style="margin: 5px 0;">Fachbereich Fokus</h3>
-                        <p>Hier hast du dich auf spezielle Technologien konzentriert.</p>
+                        <h3 style="margin: 5px 0;">Product Designer</h3>
+                        <p>Fokus auf User Experience und Interface Design.</p>
                     </div>
                     <div class="station-images">
-                        <img src="images/projekt2.jpg" alt="Projekt">
+                        <img src="https://via.placeholder.com/180x120?text=App+Vorschau" alt="App">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2019 — 2021</span>
-                        <h3 style="margin: 5px 0;">Intermediate Developer</h3>
-                        <p>Aufbau von Systemen und Zusammenarbeit im Team.</p>
-                    </div>
-                    <div class="station-images">
-                        <img src="images/projekt3.jpg" alt="Projekt">
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span style="color: var(--accent); font-weight: bold;">2017 — 2019</span>
-                        <h3 style="margin: 5px 0;">Junior Station</h3>
-                        <p>Verantwortung für erste eigene Module.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span style="color: var(--accent); font-weight: bold;">2015 — 2017</span>
-                        <h3 style="margin: 5px 0;">Berufsstart</h3>
-                        <p>Grundlegende Ausbildung und erste praktische Schritte.</p>
+                        <h3 style="margin: 5px 0;">Junior Developer</h3>
+                        <p>Einstieg in die Webentwicklung.</p>
                     </div>
                 </div>
 
             </div>
         </section>
-
-        <section class="fade-in">
-            <h2>Education</h2>
-            <div class="edu-grid">
-                <div class="edu-card">
-                    <span style="color: var(--accent); font-weight: bold;">2012 — 2015</span>
-                    <h3>Master Studium</h3>
-                    <p>Universität Name<br>Schwerpunkt Software Engineering</p>
-                </div>
-                <div class="edu-card">
-                    <span style="color: var(--accent); font-weight: bold;">2009 — 2012</span>
-                    <h3>Bachelor Studium</h3>
-                    <p>Hochschule Name<br>Allgemeine Informatik</p>
-                </div>
-            </div>
-        </section>
-
     </div>
 
     <script>
-        function spotlight() {
-            const items = document.querySelectorAll(".timeline-item");
-            const windowHeight = window.innerHeight;
-            const center = windowHeight / 2;
-
-            items.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                const itemCenter = rect.top + (rect.height / 2);
-                
-                // Wir prüfen, ob die Mitte des Items nah an der Bildschirmmitte ist
-                // Auf Mobile deaktivieren wir den Effekt für bessere Lesbarkeit
-                if (window.innerWidth > 900) {
-                    if (Math.abs(center - itemCenter) < 200) {
-                        item.classList.add("focused");
-                    } else {
-                        item.classList.remove("focused");
-                    }
-                } else {
-                    item.classList.add("focused"); // Auf Handy immer voll sichtbar
-                }
-            });
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) { reveals[i].classList.add("active"); }
+            }
         }
-
-        window.addEventListener("scroll", spotlight);
-        window.addEventListener("resize", spotlight);
-        window.addEventListener("load", spotlight);
+        window.addEventListener("scroll", reveal);
+        reveal();
     </script>
 </body>
 </html>
