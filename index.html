@@ -22,32 +22,51 @@
             line-height: 1.6;
         }
 
-        /* HERO & INTRO */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        /* HERO SECTION */
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+        }
         .hero h1 { font-size: 4rem; letter-spacing: -2px; margin: 0; font-weight: 800; }
-        
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; margin-bottom: 120px; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 40px; text-align: center; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* SEKTIONEN - Immer sichtbar, kleine Einblend-Animation beim ersten Laden */
+        section { margin-bottom: 150px; opacity: 1; }
+        
+        .fade-in {
+            animation: fadeInAnim 1.5s ease forwards;
+        }
+
+        @keyframes fadeInAnim {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 60px; text-align: center; }
 
         /* TIMELINE DESIGN */
-        .timeline { position: relative; margin: 50px auto; padding-bottom: 50px; }
-        .timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--border); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
+        .timeline { position: relative; margin: 50px auto; }
+        .timeline::after { 
+            content: ''; position: absolute; width: 2px; background-color: var(--border); 
+            top: 0; bottom: 0; left: 50%; margin-left: -1px; 
+        }
 
         .timeline-item {
             padding: 40px;
             position: relative;
             width: 50%;
             box-sizing: border-box;
-            transition: all 0.6s ease; /* Sanfter Übergang beim Scrollen */
-            opacity: 0.2; /* Standardmäßig ausgegraut */
-            transform: scale(0.9);
+            transition: all 0.5s ease-in-out;
+            opacity: 0.25; /* Standard-Zustand: ausgegraut */
+            transform: scale(0.95);
         }
 
-        /* Highlight-Klasse (wird via JS gesteuert) */
+        /* AKTIVE STATION (Spotlight) */
         .timeline-item.focused {
             opacity: 1;
             transform: scale(1.05);
@@ -55,10 +74,10 @@
         }
 
         .timeline-item::after {
-            content: ''; position: absolute; width: 16px; height: 16px; right: -11px;
+            content: ''; position: absolute; width: 14px; height: 14px; right: -10px;
             background-color: var(--bg); border: 3px solid var(--accent); top: 50px; border-radius: 50%; z-index: 1;
         }
-        .timeline-item:nth-child(even)::after { left: -11px; }
+        .timeline-item:nth-child(even)::after { left: -10px; }
 
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
@@ -67,31 +86,38 @@
         .station-images {
             position: absolute;
             top: 40px;
-            width: 200px;
+            width: 220px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+            pointer-events: none;
         }
 
-        /* Bilder einblenden wenn fokussiert */
-        .timeline-item.focused .station-images { opacity: 1; }
+        .timeline-item.focused .station-images { opacity: 1; transform: translateY(0); }
 
         .timeline-item:nth-child(odd) .station-images { left: 110%; }
         .timeline-item:nth-child(even) .station-images { right: 110%; }
 
-        .station-images img { width: 100%; border-radius: 8px; border: 1px solid var(--border); }
+        .station-images img { 
+            width: 100%; border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            border: 1px solid var(--border);
+        }
 
-        /* EDUCATION STYLE */
-        .edu-item { text-align: center; margin-bottom: 30px; }
+        /* EDUCATION */
+        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: center; }
+        .edu-card { padding: 20px; border: 1px solid var(--border); border-radius: 15px; }
 
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; opacity: 1; transform: scale(1); }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
-            .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; opacity: 1; }
+            .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; opacity: 1; margin-top: 20px; }
+            .edu-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -99,110 +125,119 @@
 
     <section class="hero">
         <h1>Hi, I am Pascal</h1>
-        <p style="color: var(--secondary);">Portfolio & Experience</p>
+        <p style="color: var(--secondary); font-size: 1.2rem;">Professional Portfolio</p>
     </section>
 
     <div class="container">
         
-        <section class="reveal">
-            <h2>Einführung</h2>
-            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <p>Ich bin ein technologiebegeisterter Entwickler mit einem Auge für Details. Hier ist mein beruflicher Werdegang und die Projekte, die mich geprägt haben.</p>
+        <section class="fade-in">
+            <h2>Intro</h2>
+            <div style="text-align: center; max-width: 700px; margin: 0 auto; font-size: 1.25rem;">
+                <p>Willkommen! Ich bin Pascal. Hier findest du eine Übersicht meiner bisherigen Projekte und Erfahrungen. Alles ist auf einen Blick sichtbar – scrolle einfach durch meine Stationen.</p>
             </div>
         </section>
 
-        <section class="reveal">
-            <h2>Berufserfahrung</h2>
+        <section>
+            <h2>Work Experience</h2>
             <div class="timeline" id="experience-timeline">
                 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2023 — Heute</span>
-                        <h3 style="margin: 5px 0;">Station 1: Senior Role</h3>
-                        <p>Leitung von Projekten und Teamführung.</p>
+                        <h3 style="margin: 5px 0;">Senior Station</h3>
+                        <p>Beschreibung deiner aktuellen Rolle und wichtigsten Erfolge.</p>
                     </div>
                     <div class="station-images">
-                        <img src="images/projekt1.jpg" alt="Projekt 1">
+                        <img src="images/projekt1.jpg" alt="Projekt">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2021 — 2023</span>
-                        <h3 style="margin: 5px 0;">Station 2: Spezialist</h3>
-                        <p>Vertiefung in komplexe Systemarchitekturen.</p>
+                        <h3 style="margin: 5px 0;">Fachbereich Fokus</h3>
+                        <p>Hier hast du dich auf spezielle Technologien konzentriert.</p>
                     </div>
                     <div class="station-images">
-                        <img src="images/projekt2.jpg" alt="Projekt 2">
+                        <img src="images/projekt2.jpg" alt="Projekt">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2019 — 2021</span>
-                        <h3 style="margin: 5px 0;">Station 3: Developer</h3>
-                        <p>Entwicklung von Kernkomponenten.</p>
+                        <h3 style="margin: 5px 0;">Intermediate Developer</h3>
+                        <p>Aufbau von Systemen und Zusammenarbeit im Team.</p>
                     </div>
                     <div class="station-images">
-                        <img src="images/projekt3.jpg" alt="Projekt 3">
+                        <img src="images/projekt3.jpg" alt="Projekt">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2017 — 2019</span>
-                        <h3 style="margin: 5px 0;">Station 4: Junior</h3>
-                        <p>Erste große Verantwortung in Web-Projekten.</p>
+                        <h3 style="margin: 5px 0;">Junior Station</h3>
+                        <p>Verantwortung für erste eigene Module.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span style="color: var(--accent); font-weight: bold;">2015 — 2017</span>
-                        <h3 style="margin: 5px 0;">Station 5: Trainee</h3>
-                        <p>Grundsteinlegung und Ausbildung im Betrieb.</p>
+                        <h3 style="margin: 5px 0;">Berufsstart</h3>
+                        <p>Grundlegende Ausbildung und erste praktische Schritte.</p>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section class="reveal">
-            <h2>Ausbildung</h2>
-            <div class="edu-item">
-                <span style="color: var(--accent); font-weight: bold;">2012 — 2015</span>
-                <h3 style="margin: 5px 0;">Studium / Master of Science</h3>
-                <p>Universität Musterstadt - Fokus auf Software Engineering</p>
-            </div>
-            <div class="edu-item">
-                <span style="color: var(--accent); font-weight: bold;">2009 — 2012</span>
-                <h3 style="margin: 5px 0;">Bachelor of Science</h3>
-                <p>Hochschule Beispielstadt</p>
+        <section class="fade-in">
+            <h2>Education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <span style="color: var(--accent); font-weight: bold;">2012 — 2015</span>
+                    <h3>Master Studium</h3>
+                    <p>Universität Name<br>Schwerpunkt Software Engineering</p>
+                </div>
+                <div class="edu-card">
+                    <span style="color: var(--accent); font-weight: bold;">2009 — 2012</span>
+                    <h3>Bachelor Studium</h3>
+                    <p>Hochschule Name<br>Allgemeine Informatik</p>
+                </div>
             </div>
         </section>
 
     </div>
 
     <script>
-        // Reveal Animation beim Scrollen (allgemein)
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                var windowHeight = window.innerHeight;
-                var elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) { el.classList.add("active"); }
+        function spotlight() {
+            const items = document.querySelectorAll(".timeline-item");
+            const windowHeight = window.innerHeight;
+            const center = windowHeight / 2;
+
+            items.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenter = rect.top + (rect.height / 2);
+                
+                // Wir prüfen, ob die Mitte des Items nah an der Bildschirmmitte ist
+                // Auf Mobile deaktivieren wir den Effekt für bessere Lesbarkeit
+                if (window.innerWidth > 900) {
+                    if (Math.abs(center - itemCenter) < 200) {
+                        item.classList.add("focused");
+                    } else {
+                        item.classList.remove("focused");
+                    }
+                } else {
+                    item.classList.add("focused"); // Auf Handy immer voll sichtbar
+                }
             });
         }
 
-        // Scroll-Spotlight für die Timeline
-        function spotlight() {
-            var items = document.querySelectorAll(".timeline-item");
-            var center = window.innerHeight / 2;
-
-            items.forEach(item => {
-                var rect = item.getBoundingClientRect();
-                var itemCenter = rect.top + (rect.height / 2);
-                
-                // Wenn das Item nah an der Bildschirmmitte ist (Bereich von 200px)
-                if (Math.abs(center - itemCenter) < 150) {
-                    item.
+        window.addEventListener("scroll", spotlight);
+        window.addEventListener("resize", spotlight);
+        window.addEventListener("load", spotlight);
+    </script>
+</body>
+</html>
