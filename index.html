@@ -14,7 +14,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -22,7 +22,7 @@
             line-height: 1.6;
         }
 
-        /* 1. HERO SECTION */
+        /* HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
@@ -30,154 +30,78 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: var(--bg);
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            letter-spacing: -2px;
-            margin: 0;
-            font-weight: 800;
-        }
+        .hero h1 { font-size: 4rem; letter-spacing: -2px; margin: 0; font-weight: 800; }
 
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            font-size: 0.9rem;
-            color: var(--secondary);
-            animation: bounce 2s infinite;
-        }
+        /* REVEAL ANIMATION */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; margin-bottom: 150px; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
+        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 50px; text-align: center; }
 
-        /* 2. LAYOUT & REVEAL ANIMATION */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
-            margin-bottom: 150px;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h2 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        /* 3. ZICK-ZACK TIMELINE */
-        .timeline {
-            position: relative;
-            margin: 0 auto;
-        }
-
-        /* Die Mittellinie */
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background-color: var(--border);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1px;
-        }
+        /* ZICK-ZACK TIMELINE MIT HOVER-EFFEKT */
+        .timeline { position: relative; margin: 0 auto; transition: all 0.5s ease; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--border); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
 
         .timeline-item {
-            padding: 10px 40px;
+            padding: 20px 40px;
             position: relative;
             width: 50%;
             box-sizing: border-box;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            z-index: 2;
         }
+
+        /* Fokus-Effekt: Wenn man über die Timeline hovert, werden alle Items blasser... */
+        .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
+
+        /* ...außer das, über dem die Maus gerade ist! */
+        .timeline-item:hover { opacity: 1 !important; transform: scale(1.1) !important; z-index: 10; }
 
         /* Die blauen Punkte */
         .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            right: -8px;
-            background-color: var(--bg);
-            border: 3px solid var(--accent);
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-            transition: background-color 0.5s ease;
+            content: ''; position: absolute; width: 16px; height: 16px; right: -11px;
+            background-color: var(--bg); border: 3px solid var(--accent); top: 30px; border-radius: 50%; z-index: 1;
         }
-
-        .reveal.active .timeline-item::after {
-            background-color: var(--accent);
-        }
+        .timeline-item:nth-child(even)::after { left: -11px; }
 
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
-        .timeline-item:nth-child(even)::after { left: -8px; }
 
-        .timeline-date {
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 0.9rem;
+        /* BILDER-LOGIK (Versteckt bis Hover) */
+        .station-images {
+            display: none;
+            position: absolute;
+            top: 0;
+            width: 180px;
+            gap: 10px;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease;
         }
 
-        .item-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: block;
-            margin: 5px 0;
+        /* Positionierung der Bilder neben den Items */
+        .timeline-item:nth-child(odd) .station-images { left: 105%; }
+        .timeline-item:nth-child(even) .station-images { right: 105%; }
+
+        .timeline-item:hover .station-images { display: flex; }
+
+        .station-images img {
+            width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--accent);
         }
 
-        /* 4. PROJEKT KARTEN */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background-color: #f4f4f4;
-            object-fit: cover;
-        }
-
-        .project-content { padding: 20px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
         /* MOBILE OPTIMIERUNG */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2.5rem; }
+        @media (max-width: 800px) {
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
-            .timeline-item::after { left: 12px !important; }
+            .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
+            .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; margin-top: 15px; }
         }
     </style>
 </head>
@@ -185,86 +109,47 @@
 
     <section class="hero">
         <h1>Hi, I am Pascal</h1>
-        <p style="color: var(--secondary);">Minimalist • Developer • Creative</p>
-        <div class="scroll-hint">Scroll nach unten</div>
+        <p style="color: var(--secondary);">Digital Portfolio • Professional Experience</p>
     </section>
 
     <div class="container">
-        
-        <section class="reveal">
-            <h2>Über Mich</h2>
-            <div style="text-align: center; font-size: 1.2rem;">
-                <p>Ich gestalte digitale Erlebnisse mit Fokus auf Performance und sauberes Design. Willkommen in meinem interaktiven Lebenslauf.</p>
-            </div>
-        </section>
-
         <section class="reveal">
             <h2>Berufserfahrung</h2>
             <div class="timeline">
                 
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="timeline-date">2023 — Heute</span>
-                        <span class="item-title">Position Eins</span>
-                        <p>Hier beschreibst du kurz deine aktuellen Aufgaben.</p>
+                        <span style="color: var(--accent); font-weight: bold;">2023 — Heute</span>
+                        <h3 style="margin: 5px 0;">Senior Lead</h3>
+                        <p>Beschreibung deiner Tätigkeit hier.</p>
+                    </div>
+                    <div class="station-images">
+                        <img src="https://via.placeholder.com/180x120?text=Projekt+A" alt="Projekt">
+                        <img src="https://via.placeholder.com/180x120?text=Design+B" alt="Design">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="timeline-date">2021 — 2023</span>
-                        <span class="item-title">Position Zwei</span>
-                        <p>Was hast du in dieser Station gelernt?</p>
+                        <span style="color: var(--accent); font-weight: bold;">2021 — 2023</span>
+                        <h3 style="margin: 5px 0;">Product Designer</h3>
+                        <p>Fokus auf User Experience und Interface Design.</p>
+                    </div>
+                    <div class="station-images">
+                        <img src="https://via.placeholder.com/180x120?text=App+Vorschau" alt="App">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="timeline-date">2019 — 2021</span>
-                        <span class="item-title">Position Drei</span>
-                        <p>Wichtige Projekte oder Verantwortlichkeiten.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-date">2017 — 2019</span>
-                        <span class="item-title">Position Vier</span>
-                        <p>Erfolge und Entwicklungsschritte.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-date">2015 — 2017</span>
-                        <span class="item-title">Position Fünf</span>
-                        <p>Deine Anfänge und Basis-Erfahrungen.</p>
+                        <span style="color: var(--accent); font-weight: bold;">2019 — 2021</span>
+                        <h3 style="margin: 5px 0;">Junior Developer</h3>
+                        <p>Einstieg in die Webentwicklung.</p>
                     </div>
                 </div>
 
             </div>
         </section>
-
-        <section class="reveal">
-            <h2>Projekte</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Projekt 1" class="project-image">
-                    <div class="project-content">
-                        <h3 style="margin:0;">Projektname A</h3>
-                        <p style="font-size: 0.9rem; color: var(--secondary);">Kurze Beschreibung der Technologie und des Ziels.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Projekt 2" class="project-image">
-                    <div class="project-content">
-                        <h3 style="margin:0;">Projektname B</h3>
-                        <p style="font-size: 0.9rem; color: var(--secondary);">Was hast du hier entwickelt?</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </div>
 
     <script>
@@ -273,15 +158,11 @@
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+                if (elementTop < windowHeight - 150) { reveals[i].classList.add("active"); }
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Initialer Check beim Laden
+        reveal();
     </script>
-
 </body>
 </html>
