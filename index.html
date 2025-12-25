@@ -41,6 +41,15 @@
 
         h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 50px; text-align: center; }
 
+        /* INTRO STYLE */
+        .intro-text {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
         /* ZICK-ZACK TIMELINE MIT HOVER-EFFEKT */
         .timeline { position: relative; margin: 0 auto; transition: all 0.5s ease; }
         .timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--border); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
@@ -55,13 +64,9 @@
             z-index: 2;
         }
 
-        /* Fokus-Effekt: Wenn man über die Timeline hovert, werden alle Items blasser... */
         .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
-
-        /* ...außer das, über dem die Maus gerade ist! */
         .timeline-item:hover { opacity: 1 !important; transform: scale(1.1) !important; z-index: 10; }
 
-        /* Die blauen Punkte */
         .timeline-item::after {
             content: ''; position: absolute; width: 16px; height: 16px; right: -11px;
             background-color: var(--bg); border: 3px solid var(--accent); top: 30px; border-radius: 50%; z-index: 1;
@@ -71,7 +76,7 @@
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
-        /* BILDER-LOGIK (Versteckt bis Hover) */
+        /* BILDER-LOGIK */
         .station-images {
             display: none;
             position: absolute;
@@ -82,10 +87,8 @@
             animation: fadeIn 0.4s ease;
         }
 
-        /* Positionierung der Bilder neben den Items */
         .timeline-item:nth-child(odd) .station-images { left: 105%; }
         .timeline-item:nth-child(even) .station-images { right: 105%; }
-
         .timeline-item:hover .station-images { display: flex; }
 
         .station-images img {
@@ -93,15 +96,33 @@
             border: 2px solid var(--accent);
         }
 
+        /* EDUCATION STYLE (Nicht interaktiv) */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .edu-item {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .edu-item h3 { margin: 10px 0 5px 0; font-size: 1.1rem; }
+        .edu-item p { margin: 0; color: var(--secondary); font-size: 0.95rem; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* MOBILE OPTIMIERUNG */
         @media (max-width: 800px) {
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
             .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; margin-top: 15px; }
+            .edu-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -113,6 +134,16 @@
     </section>
 
     <div class="container">
+        
+        <section class="reveal">
+            <h2>Intro</h2>
+            <div class="intro-text">
+                <p>
+                    Willkommen auf meinem Portfolio. Ich bin ein leidenschaftlicher Gestalter digitaler Erlebnisse mit Fokus auf modernes Design und saubere Technik. Hier finden Sie eine Übersicht meines Werdegangs und meiner bisherigen Projekte.
+                </p>
+            </div>
+        </section>
+
         <section class="reveal">
             <h2>Berufserfahrung</h2>
             <div class="timeline">
@@ -150,6 +181,23 @@
 
             </div>
         </section>
+
+        <section class="reveal">
+            <h2>Education</h2>
+            <div class="edu-grid">
+                <div class="edu-item">
+                    <span style="color: var(--accent); font-weight: bold;">2016 — 2019</span>
+                    <h3>Master of Science</h3>
+                    <p>Informatik an der Universität Musterstadt</p>
+                </div>
+                <div class="edu-item">
+                    <span style="color: var(--accent); font-weight: bold;">2013 — 2016</span>
+                    <h3>Bachelor of Science</h3>
+                    <p>Mediendesign an der Hochschule Beispiel</p>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <script>
