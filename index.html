@@ -22,7 +22,6 @@
             line-height: 1.6;
         }
 
-        /* HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -57,7 +56,7 @@
         .item-company { color: var(--text); font-weight: 600; display: block; font-size: 1.1rem; margin-top: 2px; }
         .item-date { color: var(--accent); font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 2px; }
 
-        /* TIMELINE (Zick-Zack) */
+        /* TIMELINE */
         .timeline { position: relative; margin: 0 auto; }
         .timeline::after {
             content: ''; position: absolute; width: 2px; background-color: var(--border);
@@ -85,64 +84,53 @@
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
-        /* HOVER DETAILS */
         .station-details {
             max-height: 0; opacity: 0; overflow: hidden;
             transition: all 0.5s ease; font-size: 0.9rem; color: var(--secondary);
         }
         .timeline-item:hover .station-details { max-height: 400px; opacity: 1; margin-top: 15px; }
+
         .station-details ul { list-style: none; padding: 0; margin: 0; }
         .timeline-item:nth-child(odd) ul li::after { content: ' •'; color: var(--accent); }
         .timeline-item:nth-child(even) ul li::before { content: '• '; color: var(--accent); }
 
-        /* STATION IMAGES (Timeline) */
-        .station-images {
-            display: none; position: absolute; top: 0; width: 180px; gap: 10px; flex-direction: column; animation: fadeInImg 0.4s ease;
-        }
-        .timeline-item:nth-child(odd) .station-images { left: 105%; }
-        .timeline-item:nth-child(even) .station-images { right: 105%; }
-        .timeline-item:hover .station-images { display: flex; }
-        .station-images img { width: 100%; border-radius: 8px; border: 2px solid var(--accent); }
-
-        @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-
-        /* --- INTERESTS GRID (8 Kacheln) --- */
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 Spalten */
-            gap: 20px; /* Abstand zwischen den Bildern */
-            margin-top: 40px;
-            margin-bottom: 100px;
-        }
-
-        .interest-tile {
+        /* INTERESTS SECTION (Floating Gallery) */
+        .interests-container {
+            position: relative;
+            height: 120vh;
             width: 100%;
-            aspect-ratio: 1 / 1; /* Macht jedes Bild quadratisch */
-            object-fit: cover; /* Füllt das Quadrat ohne Verzerren */
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #f0f0f0;
-            cursor: pointer;
+            overflow: hidden;
+            margin-top: 50px;
         }
 
-        .interest-tile:hover {
-            transform: scale(1.05); /* Leichter Zoom beim Hover */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            z-index: 5;
+        .interest-photo {
+            position: absolute;
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: transform 0.2s linear;
         }
+
+        /* Initial-Positionen der Fotos (wild verteilt) */
+        .p1 { top: 10%; left: 5%; }
+        .p2 { top: 15%; left: 40%; }
+        .p3 { top: 5%; left: 70%; }
+        .p4 { top: 40%; left: 10%; }
+        .p5 { top: 45%; left: 35%; }
+        .p6 { top: 35%; left: 65%; }
+        .p7 { top: 70%; left: 5%; }
+        .p8 { top: 75%; left: 45%; }
+        .p9 { top: 65%; left: 75%; }
+        .p10 { top: 85%; left: 20%; }
 
         @media (max-width: 800px) {
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
-            .station-details { opacity: 1; max-height: none; }
-            
-            /* Grid auf Mobile: 2 Spalten statt 4 */
-            .interests-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
+            .interest-photo { width: 150px; height: 200px; }
         }
     </style>
 </head>
@@ -164,7 +152,6 @@
         <section class="reveal">
             <h2>Berufserfahrung</h2>
             <div class="timeline">
-                
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="item-date">2023 — Heute</span>
@@ -173,29 +160,6 @@
                         <div class="station-details">
                             <ul><li>Global brand partnerships</li><li>TAG Heuer & Rimowa Projects</li></ul>
                         </div>
-                    </div>
-                    <div class="station-images">
-                        <img src="images/porsche.jpg" alt="Porsche">
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2023</span>
-                        <span class="item-title">Participant Strategy Weekend</span>
-                        <span class="item-company">Scholz & Friends</span>
-                        <div class="station-details">
-                            <ul><li>Customer Insights</li><li>Brand Strategy</li></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2022</span>
-                        <span class="item-title">Marketing Assistant</span>
-                        <span class="item-company">Firma C</span>
-                        <div class="station-details"><ul><li>Details folgen</li></ul></div>
                     </div>
                 </div>
                 </div>
@@ -219,15 +183,17 @@
 
         <section class="reveal">
             <h2>Interests</h2>
-            <div class="interests-grid">
-                <img src="images/foto1.jpg" class="interest-tile" alt="Interest 1">
-                <img src="images/foto2.jpg" class="interest-tile" alt="Interest 2">
-                <img src="images/foto3.jpg" class="interest-tile" alt="Interest 3">
-                <img src="images/foto4.jpg" class="interest-tile" alt="Interest 4">
-                <img src="images/foto5.jpg" class="interest-tile" alt="Interest 5">
-                <img src="images/foto6.jpg" class="interest-tile" alt="Interest 6">
-                <img src="images/foto7.jpg" class="interest-tile" alt="Interest 7">
-                <img src="images/foto8.jpg" class="interest-tile" alt="Interest 8">
+            <div class="interests-container" id="gallery">
+                <img src="images/foto1.jpg" class="interest-photo p1" data-speed="2">
+                <img src="images/foto2.jpg" class="interest-photo p2" data-speed="-1">
+                <img src="images/foto3.jpg" class="interest-photo p3" data-speed="1.5">
+                <img src="images/foto4.jpg" class="interest-photo p4" data-speed="-2">
+                <img src="images/foto5.jpg" class="interest-photo p5" data-speed="0.5">
+                <img src="images/foto6.jpg" class="interest-photo p6" data-speed="2.5">
+                <img src="images/foto7.jpg" class="interest-photo p7" data-speed="-1.5">
+                <img src="images/foto8.jpg" class="interest-photo p8" data-speed="1.2">
+                <img src="images/foto9.jpg" class="interest-photo p9" data-speed="-0.8">
+                <img src="images/foto10.jpg" class="interest-photo p10" data-speed="1.8">
             </div>
         </section>
 
@@ -241,7 +207,19 @@
                 var elementTop = el.getBoundingClientRect().top;
                 if (elementTop < windowHeight - 100) { el.classList.add("active"); }
             });
+
+            // Parallax Effekt für Interests
+            const photos = document.querySelectorAll('.interest-photo');
+            const scrollY = window.scrollY;
+            
+            photos.forEach(photo => {
+                const speed = photo.getAttribute('data-speed');
+                const yPos = -(scrollY * speed / 20);
+                const rotation = scrollY / 100 * speed;
+                photo.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
+            });
         }
+
         window.addEventListener("scroll", reveal);
         reveal();
     </script>
