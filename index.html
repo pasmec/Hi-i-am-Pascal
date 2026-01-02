@@ -85,6 +85,7 @@
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
+        /* HOVER DETAILS */
         .station-details {
             max-height: 0; opacity: 0; overflow: hidden;
             transition: all 0.5s ease; font-size: 0.9rem; color: var(--secondary);
@@ -94,6 +95,7 @@
         .timeline-item:nth-child(odd) ul li::after { content: ' •'; color: var(--accent); }
         .timeline-item:nth-child(even) ul li::before { content: '• '; color: var(--accent); }
 
+        /* STATION IMAGES (Timeline) */
         .station-images {
             display: none; position: absolute; top: 0; width: 180px; gap: 10px; flex-direction: column; animation: fadeInImg 0.4s ease;
         }
@@ -104,60 +106,29 @@
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* --- INTERESTS FAN DECK STYLE --- */
-        .fan-container {
-            position: relative;
-            height: 400px; /* Platz für den Fächer */
+        /* --- INTERESTS GRID (8 Kacheln) --- */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 Spalten */
+            gap: 20px; /* Abstand zwischen den Bildern */
+            margin-top: 40px;
+            margin-bottom: 100px;
+        }
+
+        .interest-tile {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: 60px;
-        }
-
-        .fan-card {
-            position: absolute;
-            bottom: 0;
-            width: 220px;
-            height: 320px;
+            aspect-ratio: 1 / 1; /* Macht jedes Bild quadratisch */
+            object-fit: cover; /* Füllt das Quadrat ohne Verzerren */
             border-radius: 12px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-            background-color: #fff;
-            border: 4px solid #fff;
-            object-fit: cover;
-            
-            /* Wichtig für den Fächer-Effekt: Drehpunkt unten mittig */
-            transform-origin: bottom center;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
-            /* Startposition: Alle mittig übereinander */
-            left: 50%;
-            margin-left: -110px; /* Halbe Breite nach links schieben zum Zentrieren */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f0f0f0;
+            cursor: pointer;
         }
 
-        /* Hover Effekt für einzelne Karte */
-        .fan-card:hover {
-            transform: translateY(-60px) scale(1.2) rotate(0deg) !important;
-            z-index: 100; /* In den Vordergrund */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border-color: var(--accent);
-        }
-
-        /* Die Fächer-Verteilung (Rotation) für 10 Karten */
-        .fan-card:nth-child(1) { transform: rotate(-30deg) translateY(20px); z-index: 1; }
-        .fan-card:nth-child(2) { transform: rotate(-24deg) translateY(10px); z-index: 2; }
-        .fan-card:nth-child(3) { transform: rotate(-18deg); z-index: 3; }
-        .fan-card:nth-child(4) { transform: rotate(-12deg); z-index: 4; }
-        .fan-card:nth-child(5) { transform: rotate(-6deg); z-index: 5; }
-        .fan-card:nth-child(6) { transform: rotate(6deg); z-index: 6; }
-        .fan-card:nth-child(7) { transform: rotate(12deg); z-index: 7; }
-        .fan-card:nth-child(8) { transform: rotate(18deg); z-index: 8; }
-        .fan-card:nth-child(9) { transform: rotate(24deg) translateY(10px); z-index: 9; }
-        .fan-card:nth-child(10) { transform: rotate(30deg) translateY(20px); z-index: 10; }
-
-        /* Wenn man über den Container hovert, fächern sie sich etwas weiter auf (Optionaler cooler Effekt) */
-        .fan-container:hover .fan-card:not(:hover) {
-            /* Mache die anderen Karten leicht transparent für Fokus */
-            opacity: 0.7; 
+        .interest-tile:hover {
+            transform: scale(1.05); /* Leichter Zoom beim Hover */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            z-index: 5;
         }
 
         @media (max-width: 800px) {
@@ -167,9 +138,11 @@
             .timeline-item:nth-child(even) { left: 0; }
             .station-details { opacity: 1; max-height: none; }
             
-            /* Fächer auf Mobile kleiner machen */
-            .fan-container { height: 300px; }
-            .fan-card { width: 140px; height: 200px; margin-left: -70px; }
+            /* Grid auf Mobile: 2 Spalten statt 4 */
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -219,13 +192,13 @@
 
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="item-date">2019 — 2022</span>
-                        <span class="item-title">Weitere Stationen</span>
-                        <span class="item-company">Musterfirma</span>
+                        <span class="item-date">2022</span>
+                        <span class="item-title">Marketing Assistant</span>
+                        <span class="item-company">Firma C</span>
+                        <div class="station-details"><ul><li>Details folgen</li></ul></div>
                     </div>
                 </div>
-
-            </div>
+                </div>
         </section>
 
         <section class="reveal">
@@ -246,17 +219,15 @@
 
         <section class="reveal">
             <h2>Interests</h2>
-            <div class="fan-container">
-                <img src="images/foto1.jpg" class="fan-card" alt="Interest 1">
-                <img src="images/foto2.jpg" class="fan-card" alt="Interest 2">
-                <img src="images/foto3.jpg" class="fan-card" alt="Interest 3">
-                <img src="images/foto4.jpg" class="fan-card" alt="Interest 4">
-                <img src="images/foto5.jpg" class="fan-card" alt="Interest 5">
-                <img src="images/foto6.jpg" class="fan-card" alt="Interest 6">
-                <img src="images/foto7.jpg" class="fan-card" alt="Interest 7">
-                <img src="images/foto8.jpg" class="fan-card" alt="Interest 8">
-                <img src="images/foto9.jpg" class="fan-card" alt="Interest 9">
-                <img src="images/foto10.jpg" class="fan-card" alt="Interest 10">
+            <div class="interests-grid">
+                <img src="images/foto1.jpg" class="interest-tile" alt="Interest 1">
+                <img src="images/foto2.jpg" class="interest-tile" alt="Interest 2">
+                <img src="images/foto3.jpg" class="interest-tile" alt="Interest 3">
+                <img src="images/foto4.jpg" class="interest-tile" alt="Interest 4">
+                <img src="images/foto5.jpg" class="interest-tile" alt="Interest 5">
+                <img src="images/foto6.jpg" class="interest-tile" alt="Interest 6">
+                <img src="images/foto7.jpg" class="interest-tile" alt="Interest 7">
+                <img src="images/foto8.jpg" class="interest-tile" alt="Interest 8">
             </div>
         </section>
 
