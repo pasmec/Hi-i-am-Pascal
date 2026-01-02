@@ -33,19 +33,6 @@
         }
         .hero h1 { font-size: 4rem; letter-spacing: -2px; margin: 0; font-weight: 800; }
 
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            font-size: 0.8rem;
-            color: var(--secondary);
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
         /* REVEAL ANIMATION */
@@ -66,17 +53,13 @@
             text-align: center;
         }
 
-        /* INTRO & EDUCATION STYLE (Zentriert, ohne Strich) */
+        /* INTRO & EDUCATION STYLE */
         .content-block, .edu-section { text-align: center; font-size: 1.2rem; line-height: 1.8; }
-        
-        .edu-item {
-            margin-bottom: 50px;
-            text-align: center; /* Zentrierter Text */
-        }
+        .edu-item { margin-bottom: 50px; }
         .item-title { font-weight: bold; display: block; font-size: 1.3rem; }
         .item-date { color: var(--secondary); font-size: 0.95rem; display: block; margin-bottom: 5px; }
 
-        /* INTERAKTIVE WORK EXPERIENCE (Zick-Zack & Spotlight) */
+        /* TIMELINE DESIGN */
         .timeline { position: relative; margin: 0 auto; }
         .timeline::after {
             content: ''; position: absolute; width: 2px; background-color: var(--border);
@@ -94,7 +77,7 @@
         }
 
         .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
-        .timeline-item:hover { opacity: 1 !important; transform: scale(1.1) !important; z-index: 10; }
+        .timeline-item:hover { opacity: 1 !important; transform: scale(1.05) !important; z-index: 10; }
 
         .timeline-item::after {
             content: ''; position: absolute; width: 16px; height: 16px; right: -11px;
@@ -104,6 +87,33 @@
 
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+
+        /* DETAILS (STICHPUNKTE) - Versteckt bis Hover */
+        .station-details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: var(--secondary);
+        }
+
+        .timeline-item:hover .station-details {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        .station-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Ausrichtung der Punkte je nach Seite */
+        .timeline-item:nth-child(odd) ul li::after { content: ' •'; color: var(--accent); }
+        .timeline-item:nth-child(even) ul li::before { content: '• '; color: var(--accent); }
 
         /* BILDER-LOGIK */
         .station-images {
@@ -126,13 +136,12 @@
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* MOBILE OPTIMIERUNG */
         @media (max-width: 800px) {
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
-            .station-images { position: relative; left: 0 !important; right: 0 !important; width: 100%; flex-direction: row; margin-top: 15px; }
+            .station-details { opacity: 1; max-height: none; }
         }
     </style>
 </head>
@@ -140,15 +149,13 @@
 
     <section class="hero">
         <h1>Hi, I am Pascal</h1>
-        <div class="scroll-hint">Scroll nach unten</div>
     </section>
 
     <div class="container">
-        
         <section class="reveal">
             <h2>Über mich</h2>
             <div class="content-block">
-                <p>Ich bin ein leidenschaftlicher Entwickler mit Fokus auf minimalistisches Design und sauberen Code. Hier erfährst du mehr über meine Reise.</p>
+                <p>Ich bin ein leidenschaftlicher Entwickler mit Fokus auf minimalistisches Design.</p>
             </div>
         </section>
 
@@ -159,97 +166,60 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="item-date">2023 — Heute</span>
-                        <span class="item-title">Operative support for Porsche's brand partnerships on PAG and market levels </span>
-                        <p>Tasks included:
-                        - analyzing potential partnerships on a global and market level and presenting the insights to several supervisors as decision support
-                        - first level contact person for all national brand partnership related questions
-                        - operative support for present global brand partnerships including Rimowa, Soho House, La Marzocco, TAG Heuer, Michelin, Exxon Mobil</p>
+                        <span class="item-title">Operative support for Porsche</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Analyse potenzieller Partnerschaften auf globaler Ebene</li>
+                                <li>Unterstützung bei Rimowa, Soho House und TAG Heuer Projekten</li>
+                                <li>Ansprechpartner für nationale Markenpartnerschaften</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="station-images">
-                        <img src="images/projekt1.jpg" alt="Projekt A">
+                        <img src="images/porsche_logo.jpg" alt="Porsche Project">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="item-date">2023</span>
-                        <span class="item-title">Participant at Scholz & Friends Strategy Weekend</span>
-                        <p>- selective program for future marketing professionals to gain practical insights in generating and processing customer insights into successfull brand stories
-                        - developed a communication strategy for a Wholey Organics</p>
-                    </div>
-                    <div class="station-images">
-                        <img src="images/projekt2.jpg" alt="Projekt B">
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2023</span>
-                        <span class="item-title">Operational design and organization of the brand partnership activation "Create Your Own Masterpiece"| Porsche Deutschland GmbH</span>
-                        <p>Tasks included:
-                        - further development and adjustment of activation strategy
-                        - analyzing and designing a customer experience starting from seeing the activation on a physical retail space to downloading an digital asset on their device
-                        - communication and handling of agencies to enable a smooth roleout of the activation
-                        - support and monitoring of the roleout
-                        - activate the experience at multiple further locations</p>
-                    </div>
-                    <div class="station-images">
-                        <img src="images/projekt3.jpg" alt="Projekt C">
+                        <span class="item-title">Scholz & Friends Strategy Weekend</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Einblicke in die Generierung von Customer Insights</li>
+                                <li>Entwicklung einer Kommunikationsstrategie für Wholey Organics</li>
+                                <li>Teilnahme am selektiven Programm für Marketing-Professionals</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2022</span>
-                        <span class="item-title">Community Management | Porsche Deutschland GmbH</span>
-                        <p>tbd.</p>
-                    </div>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2022</span>
-                        <span class="item-title">Organisation of Refill the Brand Event | Werbelieb e.V.</span>
-                        <p>Refill the Brand Event is an contest between young marketing students with the help of globally recognized creative and communication agencies.</p>
-                    </div>
-                </div>
-
-            </div>
         </section>
 
         <section class="reveal">
-            <h2>Education</h2>
+            <h2>Ausbildung</h2>
             <div class="edu-section">
                 <div class="edu-item">
-                    <span class="item-date">2024 — 2027</span>
-                    <span class="item-title">Master of Science / Management with Specialisation in Marketing and Information Systems</span>
-                    <p>University of Mannheim</p>
-                </div>
-                <div class="edu-item">
-                    <span class="item-date">2020 — 2024</span>
-                    <span class="item-title">Bachelor of Science / Business Administration with Specialisation in Marketing</span>
-                    <p>Business School Pforzheim</p>
+                    <span class="item-date">2018 — 2020</span>
+                    <span class="item-title">Master of Science / Informatik</span>
+                    <p>Universität Musterstadt</p>
                 </div>
             </div>
         </section>
-
     </div>
 
     <script>
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
+            reveals.forEach(el => {
                 var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
+                var elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { el.classList.add("active"); }
+            });
         }
         window.addEventListener("scroll", reveal);
         reveal();
     </script>
-
 </body>
 </html>
