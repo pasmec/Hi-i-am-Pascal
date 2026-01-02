@@ -22,11 +22,9 @@
             line-height: 1.6;
         }
 
-        /* HERO SECTION */
         .hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -35,7 +33,6 @@
 
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
-        /* REVEAL ANIMATION */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -53,13 +50,13 @@
             text-align: center;
         }
 
-        /* INTRO & EDUCATION STYLE */
         .content-block, .edu-section { text-align: center; font-size: 1.2rem; line-height: 1.8; }
         .edu-item { margin-bottom: 50px; }
         .item-title { font-weight: bold; display: block; font-size: 1.3rem; }
-        .item-date { color: var(--secondary); font-size: 0.95rem; display: block; margin-bottom: 5px; }
+        .item-company { color: var(--text); font-weight: 600; display: block; font-size: 1.1rem; margin-top: 2px; }
+        .item-date { color: var(--accent); font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 2px; }
 
-        /* TIMELINE DESIGN */
+        /* TIMELINE */
         .timeline { position: relative; margin: 0 auto; }
         .timeline::after {
             content: ''; position: absolute; width: 2px; background-color: var(--border);
@@ -88,34 +85,27 @@
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
-        /* DETAILS (STICHPUNKTE) - Versteckt bis Hover */
+        /* HOVER DETAILS */
         .station-details {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
             transition: all 0.5s ease;
-            margin-top: 10px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--secondary);
         }
 
         .timeline-item:hover .station-details {
-            max-height: 300px;
+            max-height: 400px;
             opacity: 1;
             margin-top: 15px;
         }
 
-        .station-details ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Ausrichtung der Punkte je nach Seite */
+        .station-details ul { list-style: none; padding: 0; margin: 0; }
         .timeline-item:nth-child(odd) ul li::after { content: ' •'; color: var(--accent); }
         .timeline-item:nth-child(even) ul li::before { content: '• '; color: var(--accent); }
 
-        /* BILDER-LOGIK */
+        /* BILDER */
         .station-images {
             display: none;
             position: absolute;
@@ -129,10 +119,7 @@
         .timeline-item:nth-child(even) .station-images { right: 105%; }
         .timeline-item:hover .station-images { display: flex; }
 
-        .station-images img {
-            width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 2px solid var(--accent);
-        }
+        .station-images img { width: 100%; border-radius: 8px; border: 2px solid var(--accent); }
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
@@ -152,10 +139,11 @@
     </section>
 
     <div class="container">
+        
         <section class="reveal">
             <h2>Über mich</h2>
             <div class="content-block">
-                <p>Ich bin ein leidenschaftlicher Entwickler mit Fokus auf minimalistisches Design.</p>
+                <p>Willkommen. Ich bin ein Strategie- und Marketing-Experte mit Erfahrung in internationalen Marken-Partnerschaften.</p>
             </div>
         </section>
 
@@ -166,35 +154,134 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="item-date">2023 — Heute</span>
-                        <span class="item-title">Operative support for Porsche</span>
+                        <span class="item-title">Operative support for Porsche's brand partnerships</span>
+                        <span class="item-company">Porsche AG</span>
                         <div class="station-details">
                             <ul>
-                                <li>Analyse potenzieller Partnerschaften auf globaler Ebene</li>
-                                <li>Unterstützung bei Rimowa, Soho House und TAG Heuer Projekten</li>
-                                <li>Ansprechpartner für nationale Markenpartnerschaften</li>
+                                <li>Analyse potenzieller Partnerschaften auf globalem Level</li>
+                                <li>Support für Rimowa, Soho House und TAG Heuer</li>
+                                <li>Erster Ansprechpartner für nationale Markenanfragen</li>
                             </ul>
                         </div>
                     </div>
                     <div class="station-images">
-                        <img src="images/porsche_logo.jpg" alt="Porsche Project">
+                        <img src="images/porsche.jpg" alt="Porsche">
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="item-date">2023</span>
-                        <span class="item-title">Scholz & Friends Strategy Weekend</span>
+                        <span class="item-title">Participant Strategy Weekend</span>
+                        <span class="item-company">Scholz & Friends</span>
                         <div class="station-details">
                             <ul>
-                                <li>Einblicke in die Generierung von Customer Insights</li>
-                                <li>Entwicklung einer Kommunikationsstrategie für Wholey Organics</li>
-                                <li>Teilnahme am selektiven Programm für Marketing-Professionals</li>
+                                <li>Generierung von Customer Insights für Brand Stories</li>
+                                <li>Kommunikationsstrategie für Wholey Organics entwickelt</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2022 — 2023</span>
+                        <span class="item-title">Marketing Assistant</span>
+                        <span class="item-company">Unternehmensname C</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Aufgabenpunkt 1</li>
+                                <li>Aufgabenpunkt 2</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2022</span>
+                        <span class="item-title">Junior Consultant</span>
+                        <span class="item-company">Unternehmensname D</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Projektmanagement Support</li>
+                                <li>Marktforschung und Analyse</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2021 — 2022</span>
+                        <span class="item-title">Werkstudent Brand Strategy</span>
+                        <span class="item-company">Unternehmensname E</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Erstellung von Wettbewerbsanalysen</li>
+                                <li>Präsentationserstellung für Stakeholder</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2021</span>
+                        <span class="item-title">Praktikant Event Marketing</span>
+                        <span class="item-company">Unternehmensname F</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Unterstützung bei der Eventplanung</li>
+                                <li>Social Media Betreuung während der Events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2020 — 2021</span>
+                        <span class="item-title">Tutor für BWL</span>
+                        <span class="item-company">Universität G</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Leitung von Übungsgruppen</li>
+                                <li>Korrektur von Fallstudien</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2020</span>
+                        <span class="item-title">Studentischer Mitarbeiter</span>
+                        <span class="item-company">Unternehmensname H</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Datenpflege im CRM System</li>
+                                <li>Recherchearbeiten</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2019 — 2020</span>
+                        <span class="item-title">Praktikant Vertrieb</span>
+                        <span class="item-company">Unternehmensname I</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Kaltakquise und Lead-Generierung</li>
+                                <li>Begleitung von Kundenterminen</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
         <section class="reveal">
@@ -202,7 +289,7 @@
             <div class="edu-section">
                 <div class="edu-item">
                     <span class="item-date">2018 — 2020</span>
-                    <span class="item-title">Master of Science / Informatik</span>
+                    <span class="item-title">Master of Science / Strategisches Management</span>
                     <p>Universität Musterstadt</p>
                 </div>
             </div>
