@@ -81,54 +81,56 @@
             background-color: var(--bg); border: 3px solid var(--accent); top: 30px; border-radius: 50%; z-index: 1;
         }
         .timeline-item:nth-child(even)::after { left: -11px; }
-
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
         .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
-        /* HOVER DETAILS */
         .station-details {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            font-size: 0.9rem;
-            color: var(--secondary);
+            max-height: 0; opacity: 0; overflow: hidden;
+            transition: all 0.5s ease; font-size: 0.9rem; color: var(--secondary);
         }
-
-        .timeline-item:hover .station-details {
-            max-height: 400px;
-            opacity: 1;
-            margin-top: 15px;
-        }
+        .timeline-item:hover .station-details { max-height: 400px; opacity: 1; margin-top: 15px; }
 
         .station-details ul { list-style: none; padding: 0; margin: 0; }
         .timeline-item:nth-child(odd) ul li::after { content: ' •'; color: var(--accent); }
         .timeline-item:nth-child(even) ul li::before { content: '• '; color: var(--accent); }
 
-        /* BILDER */
-        .station-images {
-            display: none;
-            position: absolute;
-            top: 0;
-            width: 180px;
-            gap: 10px;
-            flex-direction: column;
-            animation: fadeInImg 0.4s ease;
+        /* INTERESTS SECTION (Floating Gallery) */
+        .interests-container {
+            position: relative;
+            height: 120vh;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 50px;
         }
-        .timeline-item:nth-child(odd) .station-images { left: 105%; }
-        .timeline-item:nth-child(even) .station-images { right: 105%; }
-        .timeline-item:hover .station-images { display: flex; }
 
-        .station-images img { width: 100%; border-radius: 8px; border: 2px solid var(--accent); }
+        .interest-photo {
+            position: absolute;
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: transform 0.2s linear;
+        }
 
-        @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        /* Initial-Positionen der Fotos (wild verteilt) */
+        .p1 { top: 10%; left: 5%; }
+        .p2 { top: 15%; left: 40%; }
+        .p3 { top: 5%; left: 70%; }
+        .p4 { top: 40%; left: 10%; }
+        .p5 { top: 45%; left: 35%; }
+        .p6 { top: 35%; left: 65%; }
+        .p7 { top: 70%; left: 5%; }
+        .p8 { top: 75%; left: 45%; }
+        .p9 { top: 65%; left: 75%; }
+        .p10 { top: 85%; left: 20%; }
 
         @media (max-width: 800px) {
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
-            .station-details { opacity: 1; max-height: none; }
+            .interest-photo { width: 150px; height: 200px; }
         }
     </style>
 </head>
@@ -143,157 +145,58 @@
         <section class="reveal">
             <h2>Über mich</h2>
             <div class="content-block">
-                <p>Willkommen. Ich bin ein Strategie- und Marketing-Experte mit Erfahrung in internationalen Marken-Partnerschaften.</p>
+                <p>Strategie-Experte mit Leidenschaft für Design und Markenführung.</p>
             </div>
         </section>
 
         <section class="reveal">
             <h2>Berufserfahrung</h2>
             <div class="timeline">
-                
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="item-date">2023 — Heute</span>
-                        <span class="item-title">Operative support for Porsche's brand partnerships</span>
+                        <span class="item-title">Operative support for Porsche</span>
                         <span class="item-company">Porsche AG</span>
                         <div class="station-details">
-                            <ul>
-                                <li>Analyse potenzieller Partnerschaften auf globalem Level</li>
-                                <li>Support für Rimowa, Soho House und TAG Heuer</li>
-                                <li>Erster Ansprechpartner für nationale Markenanfragen</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="station-images">
-                        <img src="images/porsche.jpg" alt="Porsche">
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2023</span>
-                        <span class="item-title">Participant Strategy Weekend</span>
-                        <span class="item-company">Scholz & Friends</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Generierung von Customer Insights für Brand Stories</li>
-                                <li>Kommunikationsstrategie für Wholey Organics entwickelt</li>
-                            </ul>
+                            <ul><li>Global brand partnerships</li><li>TAG Heuer & Rimowa Projects</li></ul>
                         </div>
                     </div>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2022 — 2023</span>
-                        <span class="item-title">Marketing Assistant</span>
-                        <span class="item-company">Unternehmensname C</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Aufgabenpunkt 1</li>
-                                <li>Aufgabenpunkt 2</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2022</span>
-                        <span class="item-title">Junior Consultant</span>
-                        <span class="item-company">Unternehmensname D</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Projektmanagement Support</li>
-                                <li>Marktforschung und Analyse</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2021 — 2022</span>
-                        <span class="item-title">Werkstudent Brand Strategy</span>
-                        <span class="item-company">Unternehmensname E</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Erstellung von Wettbewerbsanalysen</li>
-                                <li>Präsentationserstellung für Stakeholder</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2021</span>
-                        <span class="item-title">Praktikant Event Marketing</span>
-                        <span class="item-company">Unternehmensname F</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Unterstützung bei der Eventplanung</li>
-                                <li>Social Media Betreuung während der Events</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2020 — 2021</span>
-                        <span class="item-title">Tutor für BWL</span>
-                        <span class="item-company">Universität G</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Leitung von Übungsgruppen</li>
-                                <li>Korrektur von Fallstudien</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2020</span>
-                        <span class="item-title">Studentischer Mitarbeiter</span>
-                        <span class="item-company">Unternehmensname H</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Datenpflege im CRM System</li>
-                                <li>Recherchearbeiten</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="item-date">2019 — 2020</span>
-                        <span class="item-title">Praktikant Vertrieb</span>
-                        <span class="item-company">Unternehmensname I</span>
-                        <div class="station-details">
-                            <ul>
-                                <li>Kaltakquise und Lead-Generierung</li>
-                                <li>Begleitung von Kundenterminen</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </section>
 
         <section class="reveal">
             <h2>Ausbildung</h2>
             <div class="edu-section">
                 <div class="edu-item">
-                    <span class="item-date">2018 — 2020</span>
-                    <span class="item-title">Master of Science / Strategisches Management</span>
-                    <p>Universität Musterstadt</p>
+                    <span class="item-date">2020 — 2022</span>
+                    <span class="item-title">Master of Science</span>
+                    <span class="item-company">Universität Beispielstadt</span>
+                </div>
+                <div class="edu-item">
+                    <span class="item-date">2016 — 2020</span>
+                    <span class="item-title">Bachelor of Arts / BWL</span>
+                    <span class="item-company">Hochschule Musterhausen</span>
                 </div>
             </div>
         </section>
+
+        <section class="reveal">
+            <h2>Interests</h2>
+            <div class="interests-container" id="gallery">
+                <img src="images/foto1.jpg" class="interest-photo p1" data-speed="2">
+                <img src="images/foto2.jpg" class="interest-photo p2" data-speed="-1">
+                <img src="images/foto3.jpg" class="interest-photo p3" data-speed="1.5">
+                <img src="images/foto4.jpg" class="interest-photo p4" data-speed="-2">
+                <img src="images/foto5.jpg" class="interest-photo p5" data-speed="0.5">
+                <img src="images/foto6.jpg" class="interest-photo p6" data-speed="2.5">
+                <img src="images/foto7.jpg" class="interest-photo p7" data-speed="-1.5">
+                <img src="images/foto8.jpg" class="interest-photo p8" data-speed="1.2">
+                <img src="images/foto9.jpg" class="interest-photo p9" data-speed="-0.8">
+                <img src="images/foto10.jpg" class="interest-photo p10" data-speed="1.8">
+            </div>
+        </section>
+
     </div>
 
     <script>
@@ -304,7 +207,19 @@
                 var elementTop = el.getBoundingClientRect().top;
                 if (elementTop < windowHeight - 100) { el.classList.add("active"); }
             });
+
+            // Parallax Effekt für Interests
+            const photos = document.querySelectorAll('.interest-photo');
+            const scrollY = window.scrollY;
+            
+            photos.forEach(photo => {
+                const speed = photo.getAttribute('data-speed');
+                const yPos = -(scrollY * speed / 20);
+                const rotation = scrollY / 100 * speed;
+                photo.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
+            });
         }
+
         window.addEventListener("scroll", reveal);
         reveal();
     </script>
