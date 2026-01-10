@@ -73,7 +73,23 @@
             z-index: 2;
         }
 
+        /* FIX 1: TRANSFORM-ORIGIN 
+           Damit der Punkt beim Zoomen an der Linie kleben bleibt.
+        */
+        .timeline-item:nth-child(odd) { 
+            left: 0; 
+            text-align: right; 
+            transform-origin: right center; /* Ankerpunkt rechts an der Linie */
+        }
+        .timeline-item:nth-child(even) { 
+            left: 50%; 
+            text-align: left; 
+            transform-origin: left center; /* Ankerpunkt links an der Linie */
+        }
+
         .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
+        
+        /* Beim Hover wird skaliert, aber dank transform-origin verrutscht der Punkt nicht mehr */
         .timeline-item:hover { opacity: 1 !important; transform: scale(1.05) !important; z-index: 10; }
 
         .timeline-item::after {
@@ -82,8 +98,6 @@
         }
         .timeline-item:nth-child(even)::after { left: -11px; }
 
-        .timeline-item:nth-child(odd) { left: 0; text-align: right; }
-        .timeline-item:nth-child(even) { left: 50%; text-align: left; }
 
         /* HOVER DETAILS */
         .station-details {
@@ -96,14 +110,51 @@
         }
 
         .timeline-item:hover .station-details {
-            max-height: 400px;
+            max-height: 600px; /* Erhöht für viel Text */
             opacity: 1;
             margin-top: 15px;
         }
 
+        /* FIX 2: FLEXBOX FÜR LIST ITEMS 
+           Damit Text und Punkt sauber getrennt sind, auch bei langen Texten.
+        */
         .station-details ul { list-style: none; padding: 0; margin: 0; }
-        .timeline-item:nth-child(odd) ul li::after { content: ' •'; color: var(--accent); }
-        .timeline-item:nth-child(even) ul li::before { content: '• '; color: var(--accent); }
+        
+        .station-details ul li {
+            display: flex; /* Flexbox aktiviert */
+            margin-bottom: 8px; /* Abstand zwischen den Punkten */
+        }
+
+        /* Styling für linke Items (Text rechts, Punkt rechts daneben) */
+        .timeline-item:nth-child(odd) .station-details ul li {
+            flex-direction: row-reverse; /* Dreht die Reihenfolge um: Text <- Punkt */
+            text-align: right;
+        }
+
+        /* Styling für rechte Items (Punkt links, Text rechts daneben) */
+        .timeline-item:nth-child(even) .station-details ul li {
+            flex-direction: row; /* Standard: Punkt -> Text */
+            text-align: left;
+        }
+
+        /* Der Punkt selbst als Pseudo-Element VOR dem Li (für beide Seiten nutzen wir ::before) */
+        .station-details ul li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            flex-shrink: 0; /* Verhindert, dass der Punkt eingequetscht wird */
+        }
+
+        /* Abstand Punkt zum Text: Links */
+        .timeline-item:nth-child(odd) .station-details ul li::before {
+            margin-left: 8px; 
+        }
+
+        /* Abstand Punkt zum Text: Rechts */
+        .timeline-item:nth-child(even) .station-details ul li::before {
+            margin-right: 8px; 
+        }
+
 
         /* BILDER */
         .station-images {
@@ -125,10 +176,26 @@
 
         @media (max-width: 800px) {
             .timeline::after { left: 20px; }
-            .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; }
+            /* Auf Mobile alles linksbündig */
+            .timeline-item { 
+                width: 100%; 
+                padding-left: 50px; 
+                text-align: left !important; 
+                transform-origin: center center !important; /* Reset Origin für Mobile */
+            }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
             .station-details { opacity: 1; max-height: none; }
+            
+            /* Listen auf Mobile auch immer "normal" (Punkt links) */
+            .timeline-item:nth-child(odd) .station-details ul li {
+                flex-direction: row;
+                text-align: left;
+            }
+            .timeline-item:nth-child(odd) .station-details ul li::before {
+                margin-left: 0;
+                margin-right: 8px;
+            }
         }
     </style>
 </head>
@@ -234,6 +301,48 @@
                             <ul>
                                 <li>Unterstützung bei der Eventplanung</li>
                                 <li>Social Media Betreuung während der Events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2020 — 2021</span>
+                        <span class="item-title">Tutor für BWL</span>
+                        <span class="item-company">Universität G</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Leitung von Übungsgruppen</li>
+                                <li>Korrektur von Fallstudien</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2020</span>
+                        <span class="item-title">Studentischer Mitarbeiter</span>
+                        <span class="item-company">Unternehmensname H</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Datenpflege im CRM System</li>
+                                <li>Recherchearbeiten</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="item-date">2019 — 2020</span>
+                        <span class="item-title">Praktikant Vertrieb</span>
+                        <span class="item-company">Unternehmensname I</span>
+                        <div class="station-details">
+                            <ul>
+                                <li>Kaltakquise und Lead-Generierung</li>
+                                <li>Begleitung von Kundenterminen</li>
                             </ul>
                         </div>
                     </div>
