@@ -92,7 +92,6 @@
         /* --- REVEAL ANIMATION (Content) --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
-        /* ÄNDERUNG: Abstand zwischen den Sektionen verringert (von 40vh auf 20vh) */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -101,10 +100,10 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ÄNDERUNG: Blauer Text (h2) angepasst - FETT und GRÖSSER */
+        /* ÄNDERUNG: Überschrift wieder kleiner (1.1rem), aber fett (800) */
         h2 {
-            font-size: 1.6rem; /* Größer als der normale Text (1.2rem) */
-            font-weight: 800;  /* Extra Fett */
+            font-size: 1.1rem; 
+            font-weight: 800;  
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--accent);
@@ -113,11 +112,18 @@
             line-height: 1.3;
         }
 
-        /* ÄNDERUNG: Zeilenabstand (line-height) verringert */
         .content-block, .edu-section { 
             text-align: center; 
             font-size: 1.2rem; 
-            line-height: 1.4; /* Kleinerer Zeilenabstand (war 1.8) */
+            line-height: 1.4; 
+        }
+
+        /* ÄNDERUNG: Spezielle Klasse für noch engeren Text im ersten Block */
+        .tight-text {
+            line-height: 1.25 !important;
+        }
+        .tight-text p {
+            margin-bottom: 15px; /* Abstand zwischen Absätzen verringern */
         }
         
         .edu-item { margin-bottom: 50px; }
@@ -161,7 +167,7 @@
             transition: all 0.5s ease; 
             font-size: 0.9rem; 
             color: var(--secondary);
-            line-height: 1.4; /* Auch hier Zeilenabstand angepasst */
+            line-height: 1.4; 
         }
         .timeline-item:hover .station-details { max-height: 600px; opacity: 1; margin-top: 15px; }
 
@@ -305,7 +311,7 @@
         
         <section class="reveal" style="margin-bottom: 30vh;">
             <h2>The most important thing you should know about me is</h2>
-            <div class="content-block">
+            <div class="content-block tight-text">
                 <p>that I’m interested in people, culture, and the stories behind great brands and products.</p>
                 <p>For me, “great” means work created with genuine passion and intention.</p>
                 <p>And that’s what I’m drawn to: working with people who truly care about what they do.</p>
@@ -313,7 +319,7 @@
         </section>
 
         <section class="reveal">
-            <h2>And if you would like to dive deeper, here you will find information about my previous activities and the projects I have been involved in.</h2>
+            <h2>Here is some more information about what I have done so far and the projects I have been involved in</h2>
             <div class="timeline">
                 
                 <div class="timeline-item">
@@ -434,7 +440,7 @@
                         </div>
                     </div>
                     <div class="station-images">
-                        <img src="images/refill1.jpg" alt="Refill Event">
+                        <img src="images/refill1.jpg" alt="Refill Event" style="object-position: 30% 50%;">
                     </div>
                 </div>
 
@@ -442,7 +448,7 @@
         </section>
 
         <section class="reveal">
-            <h2>That is where I developed part of my theoretical understanding.</h2>
+            <h2>And that's where i got my theoretical knowledge</h2>
             <div class="edu-section">
                 <div class="edu-item">
                     <span class="item-date">2024 — 2027</span>
@@ -465,7 +471,7 @@
         </section>
 
         <section class="reveal">
-            <h2>And in my free time, I enjoy capturing moments from my travels, cars, and more</h2>
+            <h2>And in my free time I like to take pictures of my traveling and cars</h2>
             <div class="hobby-gallery">
                 <img src="images/hobby1.JPG" alt="Hobby Photo 1">
                 <img src="images/hobby2.JPG" alt="Hobby Photo 2">
@@ -482,7 +488,7 @@
         <section class="reveal">
             <h2>Here you can find my documents in an old school way</h2>
             <div class="content-block">
-                <a href="https://www.dropbox.com/scl/fo/fezcuwg7hl2svnobpdeg2/AEoNCdl6tu8egnql_VZj6mk?rlkey=j6q610vumiy0w6gfzq8989s2n&st=gls4twkp&dl=0" target="_blank" class="download-btn">
+                <a href="YOUR_DROPBOX_LINK_HERE" target="_blank" class="download-btn">
                     Download Documents
                 </a>
             </div>
