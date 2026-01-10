@@ -96,11 +96,10 @@
             opacity: 0;
             transform: translateY(50px);
             transition: all 1s ease-out;
-            margin-bottom: 20vh; 
+            margin-bottom: 20vh; /* Standard-Abstand zwischen den unteren Sektionen */
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ÄNDERUNG: Überschrift wieder kleiner (1.1rem), aber fett (800) */
         h2 {
             font-size: 1.1rem; 
             font-weight: 800;  
@@ -118,12 +117,12 @@
             line-height: 1.4; 
         }
 
-        /* ÄNDERUNG: Spezielle Klasse für noch engeren Text im ersten Block */
+        /* Spezielle Klasse für noch engeren Text im ersten Block */
         .tight-text {
             line-height: 1.25 !important;
         }
         .tight-text p {
-            margin-bottom: 15px; /* Abstand zwischen Absätzen verringern */
+            margin-bottom: 15px; 
         }
         
         .edu-item { margin-bottom: 50px; }
@@ -181,7 +180,7 @@
         .timeline-item:nth-child(odd) .station-details ul li::before { margin-left: 8px; }
         .timeline-item:nth-child(even) .station-details ul li::before { margin-right: 8px; }
 
-        /* --- BILDER (UPDATED: GRÖSSER SKALIERT) --- */
+        /* --- BILDER (GRÖSSER SKALIERT) --- */
         .station-images {
             display: none; 
             position: absolute; 
@@ -217,7 +216,7 @@
             grid-column: span 2;
         }
 
-        /* --- NEW: HOBBY GALERIE STYLES (3:4) --- */
+        /* --- HOBBY GALERIE STYLES (3:4) --- */
         .hobby-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -309,7 +308,7 @@
 
     <div class="container">
         
-        <section class="reveal" style="margin-bottom: 30vh;">
+        <section class="reveal" style="margin-bottom: 80vh;">
             <h2>The most important thing you should know about me is</h2>
             <div class="content-block tight-text">
                 <p>that I’m interested in people, culture, and the stories behind great brands and products.</p>
@@ -319,7 +318,7 @@
         </section>
 
         <section class="reveal">
-            <h2>And if you would loke to dive deeper, here you will find information about my previous activities and the projects i have been involved in</h2>
+            <h2>And if you would like to dive deeper, here you will find information about my previous activities and the projects i have been involved in</h2>
             <div class="timeline">
                 
                 <div class="timeline-item">
@@ -440,7 +439,7 @@
                         </div>
                     </div>
                     <div class="station-images">
-                        <img src="images/refill1.jpg" alt="Refill Event" style="object-position: 30% 50%;">
+                        <img src="images/refill1.jpg" alt="Refill Event" style="object-position: center bottom;">
                     </div>
                 </div>
 
