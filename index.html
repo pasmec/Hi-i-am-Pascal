@@ -92,11 +92,12 @@
         /* --- REVEAL ANIMATION (Content) --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
+        /* ÄNDERUNG 1: Abstand vergrößert (40vh statt 150px) */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
             transition: all 1s ease-out;
-            margin-bottom: 150px;
+            margin-bottom: 40vh; /* Sorgt für viel Platz zum Scrollen */
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -192,30 +193,33 @@
             grid-column: span 2;
         }
 
-        /* --- NEW: HOBBY GALERIE STYLES --- */
+        /* --- NEW: HOBBY GALERIE STYLES (9:16) --- */
         .hobby-gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             margin-top: 20px;
         }
 
+        /* ÄNDERUNG 2: 9:16 Format */
         .hobby-gallery img {
-            height: 180px; /* Einheitliche Höhe */
-            flex: 1 1 auto; /* Lässt Bilder Breite dynamisch anpassen */
-            object-fit: cover;
-            border-radius: 8px;
+            height: 320px; /* Höhere Bilder für Portrait-Look */
+            aspect-ratio: 9 / 16; /* Erzwingt das Smartphone-Format */
+            width: auto;
+            object-fit: cover; /* Schneidet das Bild passend zu */
+            border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, z-index 0.3s;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex: 0 0 auto; /* Verhindert das Verzerren durch Flexbox */
         }
 
         /* Hover Effekt für die Galerie */
         .hobby-gallery img:hover {
-            transform: scale(1.15); /* Vergrößern */
-            z-index: 100; /* In den Vordergrund holen */
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: scale(1.15) rotate(2deg); /* Leichtes Drehen beim Hover */
+            z-index: 100; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
         }
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
@@ -266,8 +270,7 @@
 
             /* Hobby Gallery Mobil */
             .hobby-gallery img {
-                height: 120px; /* Kleiner auf Handy */
-                width: 45%; /* ca 2 pro Reihe */
+                height: 220px; /* Kleiner auf Handy, aber immer noch hochkant */
             }
         }
     </style>
