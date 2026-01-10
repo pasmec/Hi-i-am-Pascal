@@ -163,13 +163,14 @@
         .timeline-item:nth-child(odd) .station-details ul li::before { margin-left: 8px; }
         .timeline-item:nth-child(even) .station-details ul li::before { margin-right: 8px; }
 
-        /* --- BILDER (UPDATED für Multiple Fotos) --- */
+        /* --- BILDER (UPDATED: GRÖSSER SKALIERT) --- */
         .station-images {
             display: none; 
             position: absolute; 
             top: 0; 
-            width: 240px; 
-            gap: 8px; 
+            /* HIER GEÄNDERT: Von 240px auf 420px erhöht für größere Bilder */
+            width: 420px; 
+            gap: 12px; 
             grid-template-columns: 1fr 1fr; 
             align-content: start;
             animation: fadeInImg 0.4s ease;
@@ -187,6 +188,13 @@
             border: 2px solid var(--accent); 
             object-fit: cover;
             aspect-ratio: 16/9; 
+            /* Optional: Leichter Zoom beim Hover über das einzelne Bild */
+            transition: transform 0.3s ease;
+        }
+
+        .station-images img:hover {
+            transform: scale(1.05);
+            z-index: 5;
         }
 
         .station-images img:only-child {
