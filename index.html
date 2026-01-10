@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pascal | Portfolio</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
             --bg: #ffffff;
@@ -18,10 +21,53 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Verhindert horizontales Scrollen */
             line-height: 1.6;
         }
 
+        /* --- NEU: HAPPY NEW YEAR OVERLAY --- */
+        #new-year-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg); /* Deckt alles ab */
+            z-index: 9999; /* Liegt über allem */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #new-year-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* Klicks gehen durch */
+        }
+
+        #new-year-overlay h1 {
+            font-size: 3.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .scroll-hint-overlay {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- BESTEHENDES STYLING --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -73,23 +119,15 @@
             z-index: 2;
         }
 
-        /* FIX 1: TRANSFORM-ORIGIN 
-           Damit der Punkt beim Zoomen an der Linie kleben bleibt.
-        */
+        /* FIX 1: TRANSFORM ORIGIN (Gegen Wackeln) */
         .timeline-item:nth-child(odd) { 
-            left: 0; 
-            text-align: right; 
-            transform-origin: right center; /* Ankerpunkt rechts an der Linie */
+            left: 0; text-align: right; transform-origin: right center;
         }
         .timeline-item:nth-child(even) { 
-            left: 50%; 
-            text-align: left; 
-            transform-origin: left center; /* Ankerpunkt links an der Linie */
+            left: 50%; text-align: left; transform-origin: left center;
         }
 
         .timeline:hover .timeline-item { opacity: 0.3; transform: scale(0.95); }
-        
-        /* Beim Hover wird skaliert, aber dank transform-origin verrutscht der Punkt nicht mehr */
         .timeline-item:hover { opacity: 1 !important; transform: scale(1.05) !important; z-index: 10; }
 
         .timeline-item::after {
@@ -98,108 +136,61 @@
         }
         .timeline-item:nth-child(even)::after { left: -11px; }
 
-
         /* HOVER DETAILS */
         .station-details {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            font-size: 0.9rem;
-            color: var(--secondary);
+            max-height: 0; opacity: 0; overflow: hidden;
+            transition: all 0.5s ease; font-size: 0.9rem; color: var(--secondary);
         }
+        .timeline-item:hover .station-details { max-height: 600px; opacity: 1; margin-top: 15px; }
 
-        .timeline-item:hover .station-details {
-            max-height: 600px; /* Erhöht für viel Text */
-            opacity: 1;
-            margin-top: 15px;
-        }
-
-        /* FIX 2: FLEXBOX FÜR LIST ITEMS 
-           Damit Text und Punkt sauber getrennt sind, auch bei langen Texten.
-        */
+        /* FIX 2: SAUBERE LISTE */
         .station-details ul { list-style: none; padding: 0; margin: 0; }
-        
-        .station-details ul li {
-            display: flex; /* Flexbox aktiviert */
-            margin-bottom: 8px; /* Abstand zwischen den Punkten */
-        }
+        .station-details ul li { display: flex; margin-bottom: 8px; }
 
-        /* Styling für linke Items (Text rechts, Punkt rechts daneben) */
-        .timeline-item:nth-child(odd) .station-details ul li {
-            flex-direction: row-reverse; /* Dreht die Reihenfolge um: Text <- Punkt */
-            text-align: right;
-        }
+        .timeline-item:nth-child(odd) .station-details ul li { flex-direction: row-reverse; text-align: right; }
+        .timeline-item:nth-child(even) .station-details ul li { flex-direction: row; text-align: left; }
 
-        /* Styling für rechte Items (Punkt links, Text rechts daneben) */
-        .timeline-item:nth-child(even) .station-details ul li {
-            flex-direction: row; /* Standard: Punkt -> Text */
-            text-align: left;
-        }
-
-        /* Der Punkt selbst als Pseudo-Element VOR dem Li (für beide Seiten nutzen wir ::before) */
         .station-details ul li::before {
-            content: '•';
-            color: var(--accent);
-            font-weight: bold;
-            flex-shrink: 0; /* Verhindert, dass der Punkt eingequetscht wird */
+            content: '•'; color: var(--accent); font-weight: bold; flex-shrink: 0;
         }
-
-        /* Abstand Punkt zum Text: Links */
-        .timeline-item:nth-child(odd) .station-details ul li::before {
-            margin-left: 8px; 
-        }
-
-        /* Abstand Punkt zum Text: Rechts */
-        .timeline-item:nth-child(even) .station-details ul li::before {
-            margin-right: 8px; 
-        }
-
+        .timeline-item:nth-child(odd) .station-details ul li::before { margin-left: 8px; }
+        .timeline-item:nth-child(even) .station-details ul li::before { margin-right: 8px; }
 
         /* BILDER */
         .station-images {
-            display: none;
-            position: absolute;
-            top: 0;
-            width: 180px;
-            gap: 10px;
-            flex-direction: column;
-            animation: fadeInImg 0.4s ease;
+            display: none; position: absolute; top: 0; width: 180px; gap: 10px; flex-direction: column; animation: fadeInImg 0.4s ease;
         }
         .timeline-item:nth-child(odd) .station-images { left: 105%; }
         .timeline-item:nth-child(even) .station-images { right: 105%; }
         .timeline-item:hover .station-images { display: flex; }
-
         .station-images img { width: 100%; border-radius: 8px; border: 2px solid var(--accent); }
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
         @media (max-width: 800px) {
             .timeline::after { left: 20px; }
-            /* Auf Mobile alles linksbündig */
-            .timeline-item { 
-                width: 100%; 
-                padding-left: 50px; 
-                text-align: left !important; 
-                transform-origin: center center !important; /* Reset Origin für Mobile */
-            }
+            .timeline-item { width: 100%; padding-left: 50px; text-align: left !important; transform-origin: center center !important; }
             .timeline-item::after { left: 11px !important; }
             .timeline-item:nth-child(even) { left: 0; }
             .station-details { opacity: 1; max-height: none; }
             
-            /* Listen auf Mobile auch immer "normal" (Punkt links) */
-            .timeline-item:nth-child(odd) .station-details ul li {
-                flex-direction: row;
-                text-align: left;
-            }
-            .timeline-item:nth-child(odd) .station-details ul li::before {
-                margin-left: 0;
-                margin-right: 8px;
-            }
+            .timeline-item:nth-child(odd) .station-details ul li { flex-direction: row; text-align: left; }
+            .timeline-item:nth-child(odd) .station-details ul li::before { margin-left: 0; margin-right: 8px; }
         }
     </style>
 </head>
 <body>
+
+    <div id="new-year-overlay">
+        <h1>Happy new year<br>by the way!</h1>
+        <div class="scroll-hint-overlay">Scroll to discover</div>
+    </div>
 
     <section class="hero">
         <h1>Hi, I am Pascal</h1>
@@ -421,6 +412,60 @@
     </div>
 
     <script>
+        // --- 1. Konfetti Logic & Overlay ---
+        const overlay = document.getElementById('new-year-overlay');
+        let overlayVisible = true;
+
+        // Funktion zum Starten des Konfettis
+        function triggerConfetti() {
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#007AFF', '#ffffff', '#eeeeee'] // Deine Farben
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#007AFF', '#ffffff', '#eeeeee']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Funktion zum Ausblenden
+        function dismissOverlay() {
+            if (!overlayVisible) return;
+            overlayVisible = false;
+            
+            overlay.classList.add('hidden');
+            
+            // Ermöglicht das Scrollen des Body wieder, falls wir es gesperrt hätten
+            // Da wir keine Sperre eingebaut haben (overlay ist fixed), ist das ok.
+        }
+
+        // Starte Konfetti beim Laden
+        window.addEventListener('load', () => {
+            triggerConfetti();
+        });
+
+        // Schließe Overlay bei Scroll, Klick oder Touch
+        window.addEventListener('scroll', dismissOverlay);
+        window.addEventListener('click', dismissOverlay);
+        window.addEventListener('touchstart', dismissOverlay);
+
+
+        // --- 2. Reveal Logic (Bestehend) ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -430,7 +475,7 @@
             });
         }
         window.addEventListener("scroll", reveal);
-        reveal();
+        reveal(); // Initial call
     </script>
 </body>
 </html>
