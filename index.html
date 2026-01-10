@@ -162,14 +162,38 @@
         .timeline-item:nth-child(odd) .station-details ul li::before { margin-left: 8px; }
         .timeline-item:nth-child(even) .station-details ul li::before { margin-right: 8px; }
 
-        /* BILDER */
+        /* --- BILDER (UPDATED für Multiple Fotos) --- */
         .station-images {
-            display: none; position: absolute; top: 0; width: 180px; gap: 10px; flex-direction: column; animation: fadeInImg 0.4s ease;
+            display: none; 
+            position: absolute; 
+            top: 0; 
+            width: 240px; /* Etwas breiter gemacht für Grid */
+            gap: 8px; 
+            /* GRID statt Flex Column, damit 4 Bilder ein Quadrat bilden */
+            grid-template-columns: 1fr 1fr; 
+            align-content: start;
+            animation: fadeInImg 0.4s ease;
         }
+
         .timeline-item:nth-child(odd) .station-images { left: 105%; }
         .timeline-item:nth-child(even) .station-images { right: 105%; }
-        .timeline-item:hover .station-images { display: flex; }
-        .station-images img { width: 100%; border-radius: 8px; border: 2px solid var(--accent); }
+        
+        /* Bei Hover anzeigen und Grid aktivieren */
+        .timeline-item:hover .station-images { display: grid; }
+        
+        .station-images img { 
+            width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 2px solid var(--accent); 
+            object-fit: cover;
+            aspect-ratio: 16/9; /* Sorgt für einheitliche Bildhöhe im Grid */
+        }
+
+        /* WICHTIG: Wenn nur 1 Bild da ist, soll es die volle Breite nutzen */
+        .station-images img:only-child {
+            grid-column: span 2;
+        }
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
@@ -205,6 +229,17 @@
             .station-details { opacity: 1; max-height: none; }
             .timeline-item:nth-child(odd) .station-details ul li { flex-direction: row; text-align: left; }
             .timeline-item:nth-child(odd) .station-details ul li::before { margin-left: 0; margin-right: 8px; }
+            
+            /* Mobile Bilder Anpassung */
+            .station-images { 
+                position: relative; 
+                width: 100%; 
+                left: 0 !important; 
+                right: 0 !important; 
+                margin-top: 20px;
+                display: none; /* Erstmal verstecken auf Mobile bis Klick/Hover */
+            }
+            .timeline-item:hover .station-images { display: grid; }
         }
     </style>
 </head>
@@ -246,10 +281,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="station-images">
-                        <img src="images/foto1.jpg" alt="Porsche">
                     </div>
-                </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
@@ -280,6 +312,11 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="station-images">
+                        <img src="images/sonic1.jpg" alt="Sonic Daydream 1">
+                        <img src="images/sonic2.jpg" alt="Sonic Daydream 2">
+                        <img src="images/sonic3.jpg" alt="Sonic Daydream 3">
+                    </div>
                 </div>
 
                 <div class="timeline-item">
@@ -293,6 +330,9 @@
                                 <li>Contributed to the development of a communication strategy for Wholey Organics, including target group definition and key messaging</li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="station-images">
+                        <img src="images/scholz1.jpg" alt="Scholz Strategy">
                     </div>
                 </div>
 
@@ -310,6 +350,12 @@
                                 <li>Supported the scaling and rollout of the activation across additional locations</li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="station-images">
+                        <img src="images/masterpiece1.jpg" alt="Masterpiece 1">
+                        <img src="images/masterpiece2.jpg" alt="Masterpiece 2">
+                        <img src="images/masterpiece3.jpg" alt="Masterpiece 3">
+                        <img src="images/masterpiece4.jpg" alt="Masterpiece 4">
                     </div>
                 </div>
 
@@ -338,6 +384,9 @@
                                 <li>Contributed to the development and execution of the overall event concept for 2022</li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="station-images">
+                        <img src="images/refill1.jpg" alt="Refill Event">
                     </div>
                 </div>
 
