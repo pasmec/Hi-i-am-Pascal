@@ -42,6 +42,7 @@
             text-align: center;
             position: relative;
             z-index: 1; /* Unter dem Overlay */
+            transition: opacity 0.8s ease;
         }
         .hero h1 { font-size: 4rem; letter-spacing: -2px; margin: 0; font-weight: 800; }
 
@@ -63,7 +64,8 @@
             /* Start-Zustand: Unsichtbar */
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            /* Längere Transition für smootheres Ausblenden */
+            transition: opacity 1.2s ease, visibility 1.2s ease;
         }
 
         /* Klasse zum Einblenden */
@@ -190,10 +192,10 @@
 </head>
 <body class="scroll-lock"> <div id="new-year-overlay">
         <h1>Happy new year<br>by the way!</h1>
-        <div class="scroll-hint">Scroll to explore</div>
+        <div class="scroll-hint" id="overlay-hint">Keep scrolling...</div>
     </div>
 
-    <section class="hero">
+    <section class="hero" id="hero-section">
         <h1>Hi, I am Pascal</h1>
         <div class="scroll-hint" id="hero-scroll-hint">Scroll down</div>
     </section>
@@ -414,83 +416,110 @@
     </div>
 
     <script>
-        // STATUS VARIABLEN FÜR DIE PHASEN
-        // phase 0 = Nur Hero sichtbar
-        // phase 1 = Overlay sichtbar
-        // phase 2 = Content sichtbar (normal)
+        // STATUS VARIABLEN
         let currentPhase = 0;
         let isTransitioning = false;
+        let isScrollCooldown = false; // Verhindert zu schnelles Zählen von Events
         
+        // NEU: Zähler für Phase 1
+        let overlayScrollCount = 0;
+        const requiredOverlayScrolls = 3; // Wie oft muss man scrollen, bis das Overlay weggeht?
+
         const overlay = document.getElementById('new-year-overlay');
+        const heroSection = document.getElementById('hero-section');
         const heroScrollHint = document.getElementById('hero-scroll-hint');
+        const overlayHint = document.getElementById('overlay-hint');
 
         // FUNKTION ZUR HANDHABUNG VON SCROLL/INTERAKTION
         function handleInteraction(e) {
-            if (isTransitioning) return;
+            // Blockieren wenn wir im Übergang oder im Cooldown sind
+            if (isTransitioning || isScrollCooldown) return;
 
-            // PHASE 0 -> PHASE 1 (Trigger Overlay)
+            // --- PHASE 0 -> PHASE 1 (Trigger Overlay) ---
             if (currentPhase === 0) {
                 isTransitioning = true;
                 
                 // Overlay anzeigen
                 overlay.classList.add('visible');
+                heroSection.style.opacity = 0; // Hero ausblenden für smootheren Look
                 
-                // Konfetti zünden
                 triggerConfetti();
-
-                // Hero Hinweis ausblenden
                 if(heroScrollHint) heroScrollHint.style.opacity = 0;
 
                 setTimeout(() => {
                     currentPhase = 1;
                     isTransitioning = false;
-                }, 1000); // Kurze Wartezeit damit Overlay wirken kann
+                    // Cooldown aktivieren, damit der erste Scroll nicht direkt als Count 1 zählt
+                    activateCooldown();
+                }, 800);
             }
             
-            // PHASE 1 -> PHASE 2 (Dismiss Overlay & Unlock)
+            // --- PHASE 1 -> COUNTING -> PHASE 2 (Dismiss Overlay & Unlock) ---
             else if (currentPhase === 1) {
-                isTransitioning = true;
+                // Ein Scroll-Vorgang wurde registriert
+                overlayScrollCount++;
+                activateCooldown(); // Cooldown aktivieren
 
-                // Overlay ausblenden
-                overlay.classList.remove('visible');
-                overlay.style.pointerEvents = 'none'; // Klicks gehen jetzt durch
-                
-                // Scrollen erlauben
-                document.body.classList.remove('scroll-lock');
+                // Optional: Kleines Extra-Konfetti bei jedem Scroll zur Belohnung
+                triggerConfetti(true); 
 
-                setTimeout(() => {
-                    currentPhase = 2;
-                    isTransitioning = false;
-                }, 500);
+                // Wenn genug gescrollt wurde:
+                if (overlayScrollCount >= requiredOverlayScrolls) {
+                    isTransitioning = true;
+                    overlayHint.innerText = "Enjoy!";
+
+                    // Overlay ausblenden
+                    overlay.classList.remove('visible');
+                    overlay.style.pointerEvents = 'none';
+                    
+                    // Scrollen erlauben nach der Transition
+                    setTimeout(() => {
+                        document.body.classList.remove('scroll-lock');
+                        currentPhase = 2;
+                        isTransitioning = false;
+                    }, 1200); // Wartezeit passend zur CSS transition
+                }
             }
         }
 
-        // Event Listener für Mausrad (PC) und Touch (Handy)
-        window.addEventListener('wheel', handleInteraction);
-        window.addEventListener('touchmove', handleInteraction);
-        
-        // Klick auf das Overlay (falls man in Phase 1 ist) soll auch weiterschalten
+        // Hilfsfunktion für Cooldown (damit ein Mausrad-Dreh nicht 50 Events feuert)
+        function activateCooldown() {
+            isScrollCooldown = true;
+            setTimeout(() => {
+                isScrollCooldown = false;
+            }, 600); // 600ms Pause zwischen registrierten Scrolls
+        }
+
+        // Event Listener
+        window.addEventListener('wheel', handleInteraction, {passive: false});
+        window.addEventListener('touchmove', handleInteraction, {passive: false});
+        // Klick auf das Overlay hilft auch beim Zählen
         overlay.addEventListener('click', handleInteraction);
 
 
         // KONFETTI FUNKTION
-        function triggerConfetti() {
+        function triggerConfetti(smallBurst = false) {
+            // Kleiner Burst für Zwischen-Scrolls
+            if(smallBurst) {
+                 confetti({
+                    particleCount: 30, spread: 60, origin: { y: 0.6 },
+                    colors: ['#007AFF', '#ffffff', '#eeeeee'],
+                    ticks: 200
+                });
+                return;
+            }
+
+            // Großer Burst für den Start
             var duration = 2500;
             var end = Date.now() + duration;
 
             (function frame() {
                 confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
+                    particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
                     colors: ['#007AFF', '#ffffff', '#eeeeee']
                 });
                 confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
+                    particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
                     colors: ['#007AFF', '#ffffff', '#eeeeee']
                 });
 
@@ -501,8 +530,11 @@
         }
 
 
-        // STANDARD REVEAL LOGIK FÜR DEN REST
+        // STANDARD REVEAL LOGIK
         function reveal() {
+            // Nur ausführen wenn der Body scrollbar ist (Phase 2)
+            if (document.body.classList.contains('scroll-lock')) return;
+
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
                 var windowHeight = window.innerHeight;
@@ -511,7 +543,6 @@
             });
         }
         window.addEventListener("scroll", reveal);
-        // Initial call nicht vergessen, falls man refresht
         reveal();
     </script>
 </body>
