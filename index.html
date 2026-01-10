@@ -167,9 +167,8 @@
             display: none; 
             position: absolute; 
             top: 0; 
-            width: 240px; /* Etwas breiter gemacht für Grid */
+            width: 240px; 
             gap: 8px; 
-            /* GRID statt Flex Column, damit 4 Bilder ein Quadrat bilden */
             grid-template-columns: 1fr 1fr; 
             align-content: start;
             animation: fadeInImg 0.4s ease;
@@ -178,7 +177,6 @@
         .timeline-item:nth-child(odd) .station-images { left: 105%; }
         .timeline-item:nth-child(even) .station-images { right: 105%; }
         
-        /* Bei Hover anzeigen und Grid aktivieren */
         .timeline-item:hover .station-images { display: grid; }
         
         .station-images img { 
@@ -187,12 +185,37 @@
             border-radius: 8px; 
             border: 2px solid var(--accent); 
             object-fit: cover;
-            aspect-ratio: 16/9; /* Sorgt für einheitliche Bildhöhe im Grid */
+            aspect-ratio: 16/9; 
         }
 
-        /* WICHTIG: Wenn nur 1 Bild da ist, soll es die volle Breite nutzen */
         .station-images img:only-child {
             grid-column: span 2;
+        }
+
+        /* --- NEW: HOBBY GALERIE STYLES --- */
+        .hobby-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .hobby-gallery img {
+            height: 180px; /* Einheitliche Höhe */
+            flex: 1 1 auto; /* Lässt Bilder Breite dynamisch anpassen */
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Hover Effekt für die Galerie */
+        .hobby-gallery img:hover {
+            transform: scale(1.15); /* Vergrößern */
+            z-index: 100; /* In den Vordergrund holen */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
         @keyframes fadeInImg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
@@ -237,9 +260,15 @@
                 left: 0 !important; 
                 right: 0 !important; 
                 margin-top: 20px;
-                display: none; /* Erstmal verstecken auf Mobile bis Klick/Hover */
+                display: none; 
             }
             .timeline-item:hover .station-images { display: grid; }
+
+            /* Hobby Gallery Mobil */
+            .hobby-gallery img {
+                height: 120px; /* Kleiner auf Handy */
+                width: 45%; /* ca 2 pro Reihe */
+            }
         }
     </style>
 </head>
@@ -281,7 +310,7 @@
                             </ul>
                         </div>
                     </div>
-                    </div>
+                </div>
 
                 <div class="timeline-item">
                     <div class="timeline-content">
@@ -413,6 +442,22 @@
                     <span class="item-title">Semester Abroad / International Business</span>
                     <p>Sogang University Seoul</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>And in my free time I like to take pictures of my traveling and cars</h2>
+            <div class="hobby-gallery">
+                <img src="images/hobby1.jpg" alt="Hobby Photo 1">
+                <img src="images/hobby2.jpg" alt="Hobby Photo 2">
+                <img src="images/hobby3.jpg" alt="Hobby Photo 3">
+                <img src="images/hobby4.jpg" alt="Hobby Photo 4">
+                <img src="images/hobby5.jpg" alt="Hobby Photo 5">
+                <img src="images/hobby6.jpg" alt="Hobby Photo 6">
+                <img src="images/hobby7.jpg" alt="Hobby Photo 7">
+                <img src="images/hobby8.jpg" alt="Hobby Photo 8">
+                <img src="images/hobby9.jpg" alt="Hobby Photo 9">
+                <img src="images/hobby10.jpg" alt="Hobby Photo 10">
             </div>
         </section>
 
