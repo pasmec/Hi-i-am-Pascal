@@ -193,7 +193,7 @@
             grid-column: span 2;
         }
 
-        /* --- NEW: HOBBY GALERIE STYLES (9:16) --- */
+        /* --- NEW: HOBBY GALERIE STYLES (3:4) --- */
         .hobby-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -202,17 +202,17 @@
             margin-top: 20px;
         }
 
-        /* ÄNDERUNG 2: 9:16 Format */
+        /* ÄNDERUNG 2: 3:4 Format */
         .hobby-gallery img {
-            height: 320px; /* Höhere Bilder für Portrait-Look */
-            aspect-ratio: 9 / 16; /* Erzwingt das Smartphone-Format */
+            height: 320px; 
+            aspect-ratio: 3 / 4; /* HIER GEÄNDERT */
             width: auto;
-            object-fit: cover; /* Schneidet das Bild passend zu */
+            object-fit: cover; 
             border-radius: 12px;
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, z-index 0.3s;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            flex: 0 0 auto; /* Verhindert das Verzerren durch Flexbox */
+            flex: 0 0 auto; 
         }
 
         /* Hover Effekt für die Galerie */
@@ -270,7 +270,7 @@
 
             /* Hobby Gallery Mobil */
             .hobby-gallery img {
-                height: 220px; /* Kleiner auf Handy, aber immer noch hochkant */
+                height: 220px; /* Kleiner auf Handy */
             }
         }
     </style>
